@@ -15,6 +15,7 @@
         <?php
         include('pages/home.php');
         ?>
+        <h1>This is an h1</h1>
         </main>
         <footer>
     <p>

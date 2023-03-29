@@ -46,8 +46,9 @@ nav li a:hover {
   display: inline-block;
 }
 
-main {
-  height: 100%;
+body {
+  display: flex;
+  flex-direction: column;
 }
 
 footer {
@@ -57,4 +58,5 @@ footer {
   text-align: center;
   font-size: 14px;
   justify-content: center;
+  height: 100px;
 }

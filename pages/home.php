@@ -1,4 +1,4 @@
-<main>
+
 <?php
     include('./connection/connectionString.php');
     $stmt = $conn->prepare("SELECT * FROM event");
@@ -31,4 +31,3 @@ foreach ($events as $event) {
 }
 ?>
 </div>
-</main>

@@ -15,13 +15,13 @@ if(isset($_POST['submit'])) {
 
     // Check if a user was found with the given email
     if($user) {
-        // Query the password table for the user's password hash and salt
-        $stmt = $conn->prepare("SELECT password_hash, salt FROM password WHERE userID = :userID");
+        // Query the password table for the user's password hash
+        $stmt = $conn->prepare("SELECT password_hash FROM password WHERE userID = :userID");
         $stmt->execute(['userID' => $user['userID']]);
         $passwordData = $stmt->fetch();
 
-        // Verify the submitted password using the retrieved hash and salt
-        if(password_verify($password . $passwordData['salt'], $passwordData['password_hash'])) {
+        // Verify the submitted password using the retrieved hash
+        if(password_verify($password, $passwordData['password_hash'])) {
             // Start a new session and store user information in session variables
             session_start();
             $_SESSION['userID'] = $user['userID'];
