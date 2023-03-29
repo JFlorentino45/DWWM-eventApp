@@ -1,0 +1,60 @@
+h1 {
+  color: blue;
+}
+
+nav {
+  background-color: #9c9292;
+  overflow: hidden;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav li a:hover {
+  background-color: #111;
+}
+
+.event {
+  float: left;
+  padding-left: 30px;
+}
+
+.date {
+  float: right;
+}
+
+.eventImg {
+  max-height: 300px;
+}
+
+.eventInfo {
+  display: inline-block;
+}
+
+main {
+  height: 100%;
+}
+
+footer {
+  background-color: #f2f2f2;
+  color: #666;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  justify-content: center;
+}
