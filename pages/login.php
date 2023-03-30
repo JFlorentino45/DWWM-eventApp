@@ -26,6 +26,7 @@ if(isset($_POST['submit'])) {
             session_start();
             $_SESSION['userID'] = $user['userID'];
             $_SESSION['userName'] = $user['userName'];
+            $_SESSION['role'] = $user['role'];
             // Add any other user information you want to store in session variables here
 
             // Redirect the user to the home page

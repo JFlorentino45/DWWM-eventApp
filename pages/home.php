@@ -4,12 +4,10 @@
     $stmt = $conn->prepare("SELECT * FROM event");
     $stmt->execute();
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // include('event.php')
 ?>
 <div>
     <?php
 foreach ($events as $event) {
-    // $eventID = $event['eventID'];
     ?>
     <div class="event">
         <img class="eventImg" src="<?php echo $event['imageURL']; ?>" alt="<?php echo $event['eventName']; ?>">

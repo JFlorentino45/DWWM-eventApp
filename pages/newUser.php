@@ -56,7 +56,6 @@ function test_input($data) {
   <select id="role" name="role" required>
     <option value="organiser">Organiser</option>
     <option value="participant">Participant</option>
-    <option value="admin">Admin</option>
   </select>
 
   <label for="password">Password:</label>
