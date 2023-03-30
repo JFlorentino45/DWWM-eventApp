@@ -1,6 +1,6 @@
 <?php
 // Include database connection file
-include('../connection/connectionString.php');
+include('./connection/connectionString.php');
 
 // Check if the form has been submitted
 if(isset($_POST['submit'])) {
@@ -29,7 +29,7 @@ if(isset($_POST['submit'])) {
     $stmt->bindParam(':imageURL', $imageURL);
     $stmt->execute();
 
-    header('Location: home.php');
+    header('Location: index.php');
     exit();
 }
 ?>

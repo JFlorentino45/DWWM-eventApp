@@ -1,5 +1,5 @@
 <?php
-require_once('../connection/connectionString.php'); // include the connection string
+require_once('./connection/connectionString.php'); // include the connection string
 
 // define variables and set to empty values
 $username = $email = $role = $hashed_password = "";
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stmt->execute();
 
   // redirect the user to the login page or a confirmation page
-  header('Location: login.php');
+  header('Location: index.php?page=login');
   exit();
 }
 

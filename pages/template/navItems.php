@@ -6,28 +6,28 @@ function getNavigationItems() {
     $userName = isset($_SESSION['userName']);
     if($loggedIn && $_SESSION['role'] === 'admin') {
         return '
-            <li><a href="#">Home</a></li>
-            <li><a href="./pages/users.php">Users</a></li>
-            <li><a href="./pages/logout.php">Logout</a></li>';
+            <li><a href="index.php">Home</a></li>
+            <li><a href="index.php?page=users">Users</a></li>
+            <li><a href="index.php?page=createEvent">Create Event</a></li>
+            <li><a href="index.php?page=logout">Logout</a></li>';
     }
     elseif($loggedIn && $_SESSION['role'] === 'organiser') {
         return '
-            <li><a href="#">Home</a></li>
-            <li><a href="./pages/createEvent.php">Create Event</a></li>
-            <li><a href="./pages/logout.php">Logout</a></li>';
+            <li><a href="index.php">Home</a></li>
+            <li><a href="index.php?page=createEvent">Create Event</a></li>
+            <li><a href="index.php?page=logout">Logout</a></li>';
     }
     elseif($loggedIn && $_SESSION['role'] === 'participant') {
         return '
-            <li><a href="#">Home</a></li>
-            <li><a href="./pages/myEvents.php?id='. $_SESSION['userID'] . '">My Events</a></li>
-            <li><a href="./pages/logout.php">Logout</a></li>';
+            <li><a href="index.php">Home</a></li>
+            <li><a href="index.php?page=myEvents">My Events</a></li>
+            <li><a href="index.php?page=logout">Logout</a></li>';
     }
     else {
         return '
-            <li><a href="#">Home</a></li>
-            <li><a href="./pages/login.php">Login</a></li>
-            <li><a href="./pages/newUser.php">Create account</a></li>
-            <li><a href="./pages/logout.php">Logout</a></li>';
+            <li><a href="index.php">Home</a></li>
+            <li><a href="index.php?page=login">Login</a></li>
+            <li><a href="index.php?page=newUser">Create account</a></li>';
     }
 }
 ?>

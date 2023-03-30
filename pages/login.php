@@ -1,6 +1,6 @@
 <?php
 // Include database connection file
-include('../connection/connectionString.php');
+include('./connection/connectionString.php');
 
 // Check if the form has been submitted
 if(isset($_POST['submit'])) {
@@ -30,7 +30,7 @@ if(isset($_POST['submit'])) {
             // Add any other user information you want to store in session variables here
 
             // Redirect the user to the home page
-            header('Location: ../index.php');
+            header('Location: ./index.php');
             exit();
         } else {
             // Display an error message if the password is incorrect

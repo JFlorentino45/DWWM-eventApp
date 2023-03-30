@@ -1,6 +1,6 @@
 <?php
 if($_SESSION['role'] === 'admin') {
-    include('../connection/connectionString.php');
+    include('./connection/connectionString.php');
     $stmt = $conn->prepare("SELECT * FROM user");
     $stmt->execute();
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
