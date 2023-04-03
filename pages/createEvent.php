@@ -1,3 +1,4 @@
+
 <?php
 // Include database connection file
 include('./connection/connectionString.php');
@@ -32,7 +33,12 @@ if(isset($_POST['submit'])) {
     header('Location: index.php');
     exit();
 }
+
+$venuesStmt = $conn->prepare("SELECT venueID, venueName,venuePostalCode FROM venue");
+$venuesStmt->execute();
+$venues = $venuesStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,18 +51,24 @@ if(isset($_POST['submit'])) {
         <input type="text" name="eventName" required>
         <label>Event Date:</label>
         <input type="datetime-local" name="eventDate" required>
-        <label>Venue ID:</label>
-        <input type="number" name="venueID" required>
-        <label>Description:</label>
-        <textarea name="description" rows="5" cols="33" required></textarea>
-        <label>Event Organiser:</label>
-        <input type="text" name="eventOrganiser" required>
-        <label>Total Seats:</label>
-        <input type="number" name="totalSeats" required>
-        <label>Image Url:</label>
-        <input type="text" name="imageURL" required>
-        <input type="submit" name="submit" value="Create Event">
-    </form>
-</body>
+        <label>Venue:</label>
+        <select name="venueID" required>
+            <option value="">Select a venue</option>
+            <?php foreach($venues as $venue) { ?>
+                <option value="<?php echo $venue['venueID']; ?>"><?php echo $venue['venueName'] . " " . $venue['venuePostalCode']; ?></option>
+                <?php } ?>
+            </select>
+            <label>Description:</label>
+            <textarea name="description" rows="5" cols="33" required></textarea>
+            <label>Event Organiser:</label>
+            <input type="text" name="eventOrganiser" required>
+            <label>Total Seats:</label>
+            <input type="number" name="totalSeats" required>
+            <label>Image Url:</label>
+            <input type="text" name="imageURL" required>
+            <input type="submit" name="submit" value="Create Event">
+        </form>
+        <a href="index.php?page=newVenue"><button name="new venue">New Venue</button></a>
+    </body>
 </html>
 

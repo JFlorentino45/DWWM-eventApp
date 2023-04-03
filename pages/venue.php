@@ -1,9 +1,9 @@
 <?php
     include('./connection/connectionString.php');
-    $id = $event['venueID'];
+    $venueID = $_SESSION['venueID'];
 
     $stmt = $conn->prepare("SELECT * FROM venue WHERE venueID = :id");
-    $stmt->execute(['id' => $id]);
+    $stmt->execute(['id' => $venueID]);
     $venue = $stmt->fetch();
 ?>
     <h1><?php echo $venue['venueName']; ?></h1>

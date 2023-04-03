@@ -9,18 +9,20 @@ function getNavigationItems() {
             <li><a href="index.php">Home</a></li>
             <li><a href="index.php?page=users">Users</a></li>
             <li><a href="index.php?page=createEvent">Create Event</a></li>
+            <li><a href="index.php?page=myEventsO">Events</a></li>
             <li><a href="index.php?page=logout">Logout</a></li>';
     }
     elseif($loggedIn && $_SESSION['role'] === 'organiser') {
         return '
             <li><a href="index.php">Home</a></li>
             <li><a href="index.php?page=createEvent">Create Event</a></li>
+            <li><a href="index.php?page=myEventsO">My Events</a></li>
             <li><a href="index.php?page=logout">Logout</a></li>';
     }
     elseif($loggedIn && $_SESSION['role'] === 'participant') {
         return '
             <li><a href="index.php">Home</a></li>
-            <li><a href="index.php?page=myEvents">My Events</a></li>
+            <li><a href="index.php?page=myEventsP">My Events</a></li>
             <li><a href="index.php?page=logout">Logout</a></li>';
     }
     else {

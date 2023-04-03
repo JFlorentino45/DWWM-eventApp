@@ -15,6 +15,7 @@
         $stmt = $conn->prepare("DELETE FROM participate WHERE userID = :userID AND eventID = :eventID");
         $stmt->execute(['userID' => $id, 'eventID' => $_POST['eventID']]);        
         echo "Event removed from My Events!";
+        header('Location: #');
     }
     ?>
 <div>
