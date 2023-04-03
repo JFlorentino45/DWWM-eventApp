@@ -52,8 +52,13 @@
 <p>Date: <?php echo $event['eventDate']; ?></p>
 <p>Description: <?php echo $event['description']; ?></p>
 <p>Venue: <?php echo $event['venueName']; ?><a href="index.php?page=venue&id=<?php echo $event['venueID'] ?>"><button>Venue info</button></a></p>
+<?php
+if($_SESSION['role'] == 'admin')
+{ ?>
 <p>total seats: <?php echo $event['totalSeats']; ?></p>
 <p>total people: <?php echo $numParticipants; ?></p>
+<?php
+} ?>
 <p>Address: <?php echo $event['venueAddress']; ?></p>
 <form method="post">
     <input type="submit" name="addEvent" value="Add Event">
