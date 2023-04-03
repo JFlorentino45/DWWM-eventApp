@@ -1,5 +1,4 @@
 <?php
-
 require_once('./connection/connectionString.php');
 
 if(isset($_POST['submit'])) {

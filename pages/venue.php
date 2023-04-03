@@ -1,6 +1,6 @@
 <?php
     include('./connection/connectionString.php');
-    $venueID = $_SESSION['venueID'];
+    $venueID = $_GET['id'];
 
     $stmt = $conn->prepare("SELECT * FROM venue WHERE venueID = :id");
     $stmt->execute(['id' => $venueID]);
