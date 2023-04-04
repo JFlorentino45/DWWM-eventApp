@@ -2,10 +2,15 @@
 <main>
 <?php
     // Include database connection file
+    var_dump($_SESSION);
     include('./connection/connectionString.php');
     // Get the event ID from the URL parameter
     $eventID = $_GET['id'];
-
+    if(isset($_SESSION['role'])){
+        $role = $_SESSION['role'];
+    } else{
+        $role = 'guest';
+    }
     // Query the database for the event details
     $stmt = $conn->prepare("
     SELECT DISTINCT event.*, venue.*
@@ -53,14 +58,27 @@
 <p>Description: <?php echo $event['description']; ?></p>
 <p>Venue: <?php echo $event['venueName']; ?><a href="index.php?page=venue&id=<?php echo $event['venueID'] ?>"><button>Venue info</button></a></p>
 <?php
-if($_SESSION['role'] == 'admin')
+if($role == 'admin')
 { ?>
-<p>total seats: <?php echo $event['totalSeats']; ?></p>
-<p>total people: <?php echo $numParticipants; ?></p>
+    <p>total seats: <?php echo $event['totalSeats']; ?></p>
+    <p>total people: <?php echo $numParticipants; ?></p>
 <?php
 } ?>
 <p>Address: <?php echo $event['venueAddress']; ?></p>
-<form method="post">
-    <input type="submit" name="addEvent" value="Add Event">
-</form>
+<?php
+if($role == 'participant')
+{ ?>
+    <form method="post">
+        <input type="submit" name="addEvent" value="Add Event">
+    </form>
+<?php
+} ?>
+<?php
+if($role == 'guest')
+{ ?>
+    <p>To add event ->
+    <a href="index.php?page=login"><button>Login</button></a>
+     or <a href="index.php?page=newUser"><button>Create Account</button></a></p>
+<?php
+} ?>
 </main>

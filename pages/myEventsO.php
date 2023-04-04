@@ -25,7 +25,7 @@
     <title>Edit events</title>
 </head>
 <body>
-    <h1>My Events</h1>
+    <h1>Events</h1>
     <div>
     <?php 
     foreach ($events as $event) {

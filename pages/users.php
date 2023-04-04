@@ -23,5 +23,5 @@ foreach ($users as $user) {
 <?php
 }
 else {
-    header("Location: ./template/404.php");
+    header("Location: ". TEMPLATE . '404.php');
 }
