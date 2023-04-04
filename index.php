@@ -1,7 +1,9 @@
 <?php
 include './config/config.php';
+require_once './classes/Router.php';
 $page = isset($_GET["page"]) ? $_GET["page"] : "home";
 $pageLink = CSS . "/" . $page . ".css";
+$router = new Router();
 ?>
 
 <!DOCTYPE html>
@@ -16,13 +18,7 @@ $pageLink = CSS . "/" . $page . ".css";
 <body>
 <?php
         include TEMPLATE . '/_header.php';
-        if(file_exists(PAGES . $page . ".php"))
-        {
-        include PAGES . $page . ".php";
-        } else
-        {
-            include TEMPLATE . "/404.php";
-        }
+        $router->getPage();
         include TEMPLATE . '/_footer.php'; 
     ?>
 </body>
