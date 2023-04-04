@@ -1,5 +1,7 @@
 <?php
-if($_SESSION['role'] === 'admin') {
+require_once('./classes/AccountInfo.php');
+$role = getRole();
+if($role === 'admin') {
     include('./connection/connectionString.php');
     $stmt = $conn->prepare("SELECT * FROM user");
     $stmt->execute();

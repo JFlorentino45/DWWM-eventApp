@@ -1,7 +1,9 @@
 <?php
     include('./connection/connectionString.php');
-    $id = $_SESSION['userID'];
-    $role = $_SESSION['role'];
+    require_once('./classes/AccountInfo.php');
+
+    $id = getUserID();
+    $role = getRole();
     
     if($role === 'admin') {
         $stmt = $conn->prepare('

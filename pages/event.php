@@ -1,17 +1,12 @@
 
 <main>
 <?php
-    // Include database connection file
-    var_dump($_SESSION);
     include('./connection/connectionString.php');
-    // Get the event ID from the URL parameter
+    require_once('./classes/AccountInfo.php');
     $eventID = $_GET['id'];
-    if(isset($_SESSION['role'])){
-        $role = $_SESSION['role'];
-    } else{
-        $role = 'guest';
-    }
-    // Query the database for the event details
+    $role = getRole();
+    $userID = getUserID();
+    
     $stmt = $conn->prepare("
     SELECT DISTINCT event.*, venue.*
     FROM event
@@ -24,17 +19,11 @@
     $stmt->execute(['eventID' => $eventID]);
     $numParticipants = $stmt->fetchColumn();
 
-    // Check if the "addEvent" button has been clicked
     if(isset($_POST['addEvent'])) {
-        // Get the current user ID from the session variable
-        $userID = $_SESSION['userID'];
 
-        // Check to see if the user is already signed up
         $stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE userID = :userID AND eventID = :eventID");
         $stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
         $count = $stmt->fetchColumn();
-
-        //Check to see if there are still seats available
 
         $totalSeats = $event['totalSeats'];
 
@@ -43,11 +32,8 @@
         } elseif($numParticipants == $totalSeats) {
            echo "Sorry, this event is full!"; 
         } else {
-            // Insert the participation record into the database
             $stmt = $conn->prepare("INSERT INTO participate (userID, eventID) VALUES (:userID, :eventID)");
             $stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
-    
-            // Display a success message
             echo "Event added to your events list!";
         }
     }
@@ -69,7 +55,7 @@ if($role == 'admin')
 if($role == 'participant')
 { ?>
     <form method="post">
-        <input type="submit" name="addEvent" value="Add Event">
+        <input type="submit" name="addEvent" value="Sign Up">
     </form>
 <?php
 } ?>

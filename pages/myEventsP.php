@@ -1,6 +1,8 @@
 <?php
     include('./connection/connectionString.php');
-    $id = $_SESSION['userID'];
+    require_once('./classes/AccountInfo.php');
+
+    $id = getUserID();
     
     $stmt = $conn->prepare('
     SELECT DISTINCT event.*, participate.*, venue.*
@@ -20,6 +22,10 @@
     ?>
 <div>
     <?php 
+    if(count($events) == 0){
+    ?> <h2>You are not signed up to any events</h2>
+    <?php
+    }
     foreach ($events as $event) {
         
     ?>
