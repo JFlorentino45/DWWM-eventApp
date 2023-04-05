@@ -1,11 +1,15 @@
 <?php
 require_once('./classes/AccountInfo.php');
 $role = getRole();
-if($role === 'admin') {
+if($role == 'admin') {
     include('./connection/connectionString.php');
     $stmt = $conn->prepare("SELECT * FROM user");
     $stmt->execute();
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+else {
+    header("Location: ". TEMPLATE . '404.php');
+}
 ?>
 
 <div>
@@ -22,8 +26,3 @@ foreach ($users as $user) {
 }
 ?>
 </div>
-<?php
-}
-else {
-    header("Location: ". TEMPLATE . '404.php');
-}

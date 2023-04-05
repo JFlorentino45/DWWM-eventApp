@@ -4,7 +4,7 @@ require_once('./connection/connectionString.php');
 if (isset($_POST['submit'])) {
   $username = $_POST["username"];
   $email = $_POST["email"];
-  $role = $_POST["role"];
+  $role = 'participant';
   $password = $_POST["password"];
 
   // hash password
@@ -28,7 +28,11 @@ if (isset($_POST['submit'])) {
   $stmt->execute();
 
   // redirect the user to the login page
-  header('Location: index.php?page=login');
+  if(isset($_GET['id'])){
+
+    header('Location: ./index.php?page=login&id=' . $_GET['id']);
+  } else
+  header('Location: ./index.php?page=login');
   exit();
 }
 
@@ -39,11 +43,6 @@ if (isset($_POST['submit'])) {
   <input type="text" id="username" name="username" required>
   <label for="email">Email:</label>
   <input type="email" id="email" name="email" required>
-  <label for="role">Role:</label>
-  <select id="role" name="role" required>
-    <option value="organiser">Organiser</option>
-    <option value="participant">Participant</option>
-  </select>
   <label for="password">Password:</label>
   <input type="password" id="password" name="password" required>
   <input type="submit" name="submit" value="Submit">

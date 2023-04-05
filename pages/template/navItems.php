@@ -7,7 +7,9 @@ function getNavigationItems() {
     if($loggedIn && $role === 'admin') {
         return '
             <li><a href="index.php">Home</a></li>
+            <li><a href="index.php?page=newUser">Create User</a></li>
             <li><a href="index.php?page=users">Users</a></li>
+            <li><a href="index.php?page=newEvent">Create Event</a></li>
             <li><a href="index.php?page=myEventsO">Events</a></li>
             <li><a href="index.php?page=venues">Venues</a></li>
             <li><a href="index.php?page=logout">Logout</a></li>';

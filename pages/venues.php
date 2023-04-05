@@ -1,8 +1,14 @@
 <?php
     include('./connection/connectionString.php');
-    $stmt = $conn->prepare("SELECT * FROM venue");
-    $stmt->execute();
-    $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    require_once('./classes/AccountInfo.php');
+    $role = getRole();
+    if($role == 'admin'){
+        $stmt = $conn->prepare("SELECT * FROM venue");
+        $stmt->execute();
+        $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        header("Location: ". TEMPLATE . '404.php');
+    }
 ?>
 <div>
     <?php

@@ -1,25 +1,32 @@
 <?php
-    include('./connection/connectionString.php');
-    require_once('./classes/AccountInfo.php');
-
-    $id = getUserID();
-    
-    $stmt = $conn->prepare('
-    SELECT DISTINCT event.*, participate.*, venue.*
-    FROM event
-    JOIN participate ON event.eventID = participate.eventID
-    JOIN venue ON event.venueID = venue.venueID
-    WHERE participate.userID = :id');
-    $stmt->execute(['id' => $id]);
+include('./connection/connectionString.php');
+require_once('./classes/AccountInfo.php');
+$role = getRole();
+$userID = getUserID();
+var_dump($role);
+if($role == 'participant'){
+    $stmt = $conn->prepare(
+        'SELECT DISTINCT event.*, participate.*, venue.*
+        FROM event
+        JOIN participate ON event.eventID = participate.eventID
+        JOIN venue ON event.venueID = venue.venueID
+        WHERE participate.userID = :id');
+    $stmt->execute(['id' => $userID]);
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     if(isset($_POST['removeEvent'])) {        
-        $stmt = $conn->prepare("DELETE FROM participate WHERE userID = :userID AND eventID = :eventID");
-        $stmt->execute(['userID' => $id, 'eventID' => $_POST['eventID']]);        
+        $stmt = $conn->prepare(
+            'DELETE 
+            FROM participate 
+            WHERE userID = :userID AND eventID = :eventID');
+        $stmt->execute(['userID' => $userID, 'eventID' => $_POST['eventID']]);        
         echo "Event removed from My Events!";
         header('Location: #');
     }
-    ?>
+} else{
+    header("Location: ". TEMPLATE . '404.php');
+}
+?>
 <div>
     <?php 
     if(count($events) == 0){

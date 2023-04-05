@@ -1,28 +1,34 @@
 <?php 
 include('./connection/connectionString.php');
+require_once('./classes/AccountInfo.php');
+$role = getRole();
 $venueID = $_GET['id'];
 
-$stmt = $conn->prepare("SELECT * FROM venue WHERE venueID = :id");
-$stmt->execute(['id' => $venueID]);
-$venue = $stmt->fetch();
-
-if(isset($_POST['submit'])) {
-    // Get the event details from the form
-    $venueName = $_POST['venueName'];
-    $venueAddress = $_POST['venueAddress'];
-    $venuePostalCode = $_POST['venuePostalCode'];
-    $venueImg = $_POST['venueImg'];
-
-    $stmt = $conn->prepare("UPDATE venue SET venueName = :venueName, venueAddress = :venueAddress, venuePostalCode = :venuePostalCode, venueImg = :venueImg WHERE venueID = :venueID");
-    $stmt->bindParam(':venueName', $venueName);
-    $stmt->bindParam(':venueAddress', $venueAddress);
-    $stmt->bindParam(':venuePostalCode', $venuePostalCode);
-    $stmt->bindParam(':venueImg', $venueImg);
-    $stmt->bindParam(':venueID', $venueID);
-    $stmt->execute();
-
-    header('Location: index.php?page=venues');
-    exit();
+if($role == 'admin'){
+    $stmt = $conn->prepare("SELECT * FROM venue WHERE venueID = :id");
+    $stmt->execute(['id' => $venueID]);
+    $venue = $stmt->fetch();
+    
+    if(isset($_POST['submit'])) {
+        // Get the event details from the form
+        $venueName = $_POST['venueName'];
+        $venueAddress = $_POST['venueAddress'];
+        $venuePostalCode = $_POST['venuePostalCode'];
+        $venueImg = $_POST['venueImg'];
+    
+        $stmt = $conn->prepare("UPDATE venue SET venueName = :venueName, venueAddress = :venueAddress, venuePostalCode = :venuePostalCode, venueImg = :venueImg WHERE venueID = :venueID");
+        $stmt->bindParam(':venueName', $venueName);
+        $stmt->bindParam(':venueAddress', $venueAddress);
+        $stmt->bindParam(':venuePostalCode', $venuePostalCode);
+        $stmt->bindParam(':venueImg', $venueImg);
+        $stmt->bindParam(':venueID', $venueID);
+        $stmt->execute();
+    
+        header('Location: index.php?page=venues');
+        exit();
+    }
+} else{
+    header("Location: ". TEMPLATE . '404.php');
 }
 ?>
 

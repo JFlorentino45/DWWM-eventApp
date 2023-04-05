@@ -1,43 +1,42 @@
+<?php
+include('./connection/connectionString.php');
+require_once('./classes/AccountInfo.php');
+$eventID = $_GET['id'];
+$role = getRole();
+$userID = getUserID();
+
+$stmt = $conn->prepare("SELECT DISTINCT event.*, venue.*
+FROM event
+JOIN venue ON event.venueID = venue.venueID
+WHERE event.eventID = :eventID");
+$stmt->execute(['eventID' => $eventID]);
+$event = $stmt->fetch();
+
+$stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE eventID = :eventID");
+$stmt->execute(['eventID' => $eventID]);
+$numParticipants = $stmt->fetchColumn();
+
+if(isset($_POST['addEvent'])) {
+
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE userID = :userID AND eventID = :eventID");
+    $stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
+    $count = $stmt->fetchColumn();
+
+    $totalSeats = $event['totalSeats'];
+
+    if($count > 0) {
+        echo "You have already signed up to this event!";
+    } elseif($numParticipants == $totalSeats) {
+        echo "Sorry, this event is full!"; 
+    } else {
+        $stmt = $conn->prepare("INSERT INTO participate (userID, eventID) VALUES (:userID, :eventID)");
+        $stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
+        echo "Event added to your events list!";
+    }
+}
+?>
 
 <main>
-<?php
-    include('./connection/connectionString.php');
-    require_once('./classes/AccountInfo.php');
-    $eventID = $_GET['id'];
-    $role = getRole();
-    $userID = getUserID();
-    
-    $stmt = $conn->prepare("
-    SELECT DISTINCT event.*, venue.*
-    FROM event
-    JOIN venue ON event.venueID = venue.venueID
-    WHERE event.eventID = :eventID");
-    $stmt->execute(['eventID' => $eventID]);
-    $event = $stmt->fetch();
-
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE eventID = :eventID");
-    $stmt->execute(['eventID' => $eventID]);
-    $numParticipants = $stmt->fetchColumn();
-
-    if(isset($_POST['addEvent'])) {
-
-        $stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE userID = :userID AND eventID = :eventID");
-        $stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
-        $count = $stmt->fetchColumn();
-
-        $totalSeats = $event['totalSeats'];
-
-        if($count > 0) {
-            echo "You have already signed up to this event!";
-        } elseif($numParticipants == $totalSeats) {
-           echo "Sorry, this event is full!"; 
-        } else {
-            $stmt = $conn->prepare("INSERT INTO participate (userID, eventID) VALUES (:userID, :eventID)");
-            $stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
-            echo "Event added to your events list!";
-        }
-    }
-?>
 <h1><?php echo $event['eventName']; ?></h1>
 <img class="eventImg" src="<?php echo $event['imageURL']; ?>" alt="<?php echo $event['eventName']; ?>">
 <p>Date: <?php echo $event['eventDate']; ?></p>
@@ -62,9 +61,9 @@ if($role == 'participant')
 <?php
 if($role == 'guest')
 { ?>
-    <p>To add event ->
-    <a href="index.php?page=login"><button>Login</button></a>
-     or <a href="index.php?page=newUser"><button>Create Account</button></a></p>
+    <p>To sign up for an event ->
+    <a href="index.php?page=login&id=<?= $eventID?>"><button>Login</button></a>
+     or <a href="index.php?page=newUser&id=<?= $eventID?>"><button>Create Account</button></a></p>
 <?php
 } ?>
 </main>

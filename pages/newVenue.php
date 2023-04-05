@@ -1,22 +1,27 @@
 <?php
 require_once('./connection/connectionString.php');
-
-if(isset($_POST['submit'])) {
-    // Get the event details from the form
-    $venueName = $_POST['venueName'];
-    $venueAddress = $_POST['venueAddress'];
-    $venuePostalCode = $_POST['venuePostalCode'];
-    $venueImg = $_POST['venueImg'];
-
-    $stmt = $conn->prepare("INSERT INTO venue (venueName, venueAddress, venuePostalCode, venueImg) VALUES (:venueName, :venueAddress, :venuePostalCode, :venueImg)");
-    $stmt->bindParam(':venueName', $venueName);
-    $stmt->bindParam(':venueAddress', $venueAddress);
-    $stmt->bindParam(':venuePostalCode', $venuePostalCode);
-    $stmt->bindParam(':venueImg', $venueImg);
-    $stmt->execute();
-
-    header('Location: index.php');
-    exit();
+require_once('./classes/AccountInfo.php');
+$role = getRole();
+if($role == 'admin' || $role == 'organiser'){
+    if(isset($_POST['submit'])) {
+        // Get the event details from the form
+        $venueName = $_POST['venueName'];
+        $venueAddress = $_POST['venueAddress'];
+        $venuePostalCode = $_POST['venuePostalCode'];
+        $venueImg = $_POST['venueImg'];
+    
+        $stmt = $conn->prepare("INSERT INTO venue (venueName, venueAddress, venuePostalCode, venueImg) VALUES (:venueName, :venueAddress, :venuePostalCode, :venueImg)");
+        $stmt->bindParam(':venueName', $venueName);
+        $stmt->bindParam(':venueAddress', $venueAddress);
+        $stmt->bindParam(':venuePostalCode', $venuePostalCode);
+        $stmt->bindParam(':venueImg', $venueImg);
+        $stmt->execute();
+    
+        header('Location: index.php');
+        exit();
+    }
+} else {
+    header("Location: ". TEMPLATE . '404.php');
 }
 
 ?>
