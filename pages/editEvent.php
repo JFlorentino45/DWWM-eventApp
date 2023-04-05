@@ -54,12 +54,7 @@ if($role == 'admin' || $role == 'organiser'){
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Event</title>
-</head>
-<body>
+<main>
     <h1>Edit Event</h1>
     <form method="post">
         <label>Event Name:</label>
@@ -84,5 +79,4 @@ if($role == 'admin' || $role == 'organiser'){
         <input type="text" name="imageURL" value="<?php echo $event['imageURL']; ?>" required>
         <input type="submit" name="submit" value="Edit Event">
     </form>
-    </body>
-</html>
+</main>

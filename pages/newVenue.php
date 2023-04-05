@@ -26,12 +26,7 @@ if($role == 'admin' || $role == 'organiser'){
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Venue</title>
-</head>
-<body>
+<main>
     <h1>Create Venue</h1>
     <form method="post">
         <label>Venue Name:</label>
@@ -44,5 +39,4 @@ if($role == 'admin' || $role == 'organiser'){
         <input type="text" name="venueImg" required>
         <input type="submit" name="submit" value="Create Venue">
         </form>
-    </body>
-</html>
+</main>

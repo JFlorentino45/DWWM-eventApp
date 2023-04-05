@@ -32,12 +32,7 @@ if($role == 'admin'){
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Venue</title>
-</head>
-<body>
+<main>
     <h1>Edit Venue</h1>
     <form method="post">
         <label>Venue Name:</label>
@@ -50,5 +45,4 @@ if($role == 'admin'){
         <input type="text" name="venueImg" value="<?php echo $venue['venueImg']; ?>">
         <input type="submit" name="submit" value="Edit Venue">
     </form>
-    </body>
-</html>
+</main>

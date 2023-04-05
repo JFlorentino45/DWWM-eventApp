@@ -37,33 +37,33 @@ if(isset($_POST['addEvent'])) {
 ?>
 
 <main>
-<h1><?php echo $event['eventName']; ?></h1>
-<img class="eventImg" src="<?php echo $event['imageURL']; ?>" alt="<?php echo $event['eventName']; ?>">
-<p>Date: <?php echo $event['eventDate']; ?></p>
-<p>Description: <?php echo $event['description']; ?></p>
-<p>Venue: <?php echo $event['venueName']; ?><a href="index.php?page=venue&id=<?php echo $event['venueID'] ?>"><button>Venue info</button></a></p>
-<?php
-if($role == 'admin')
-{ ?>
-    <p>total seats: <?php echo $event['totalSeats']; ?></p>
-    <p>total people: <?php echo $numParticipants; ?></p>
-<?php
-} ?>
-<p>Address: <?php echo $event['venueAddress']; ?></p>
-<?php
-if($role == 'participant')
-{ ?>
-    <form method="post">
-        <input type="submit" name="addEvent" value="Sign Up">
-    </form>
-<?php
-} ?>
-<?php
-if($role == 'guest')
-{ ?>
-    <p>To sign up for an event ->
-    <a href="index.php?page=login&id=<?= $eventID?>"><button>Login</button></a>
-     or <a href="index.php?page=newUser&id=<?= $eventID?>"><button>Create Account</button></a></p>
-<?php
-} ?>
+    <h1><?php echo $event['eventName']; ?></h1>
+    <img class="eventImg" src="<?php echo $event['imageURL']; ?>" alt="<?php echo $event['eventName']; ?>">
+    <p>Date: <?php echo $event['eventDate']; ?></p>
+    <p>Description: <?php echo $event['description']; ?></p>
+    <p>Venue: <?php echo $event['venueName']; ?><a href="index.php?page=venue&id=<?php echo $event['venueID'] ?>"><button>Venue info</button></a></p>
+    <?php
+    if($role == 'admin')
+    { ?>
+        <p>total seats: <?php echo $event['totalSeats']; ?></p>
+        <p>total people: <?php echo $numParticipants; ?></p>
+    <?php
+    } ?>
+    <p>Address: <?php echo $event['venueAddress']; ?></p>
+    <?php
+    if($role == 'participant')
+    { ?>
+        <form method="post">
+            <input type="submit" name="addEvent" value="Sign Up">
+        </form>
+    <?php
+    } ?>
+    <?php
+    if($role == 'guest')
+    { ?>
+        <p>To sign up for an event ->
+        <a href="index.php?page=login&id=<?= $eventID?>"><button>Login</button></a>
+        or <a href="index.php?page=newUser&id=<?= $eventID?>"><button>Create Account</button></a></p>
+    <?php
+    } ?>
 </main>

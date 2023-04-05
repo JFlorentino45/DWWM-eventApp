@@ -51,12 +51,7 @@ if($userID == ''){
     header("Location: ". TEMPLATE . '404.php');
 }
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
+<main>
     <h1>Login</h1>
     <form method="post">
         <label>Email:</label>
@@ -65,5 +60,4 @@ if($userID == ''){
         <input type="password" name="password" required>
         <input type="submit" name="submit" value="Login">
     </form>
-</body>
-</html>
+</main>

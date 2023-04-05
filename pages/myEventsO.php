@@ -22,12 +22,7 @@ if($role == 'admin') {
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit events</title>
-</head>
-<body>
+<main>
     <h1>Events</h1>
     <div>
     <?php 
@@ -48,6 +43,5 @@ if($role == 'admin') {
     <?php
     }
     ?>
-</div>
-</body>
-</html>
+    </div>
+</main>

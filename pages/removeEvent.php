@@ -23,19 +23,10 @@ if($count > 0 || $role == 'admin'){
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<main>
     <h2>Are you sure you want to delete '<?php echo $event['eventName'] ?>'</h2>
     <p><form method="post">
         <input type="submit" name="remove" value="Yes">
     </form>
     <a href="index.php?page=myEventsO"><button>No</button></a></p>
-</body>
-</html>
+</main>

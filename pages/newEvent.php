@@ -38,12 +38,7 @@ if($role == 'admin' || $role == 'organiser') {
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create event</title>
-</head>
-<body>
+<main>
     <h1>Create Event</h1>
     <form method="post">
         <label>Event Name:</label>
@@ -68,6 +63,4 @@ if($role == 'admin' || $role == 'organiser') {
         <input type="submit" name="submit" value="Create Event">
     </form>
     <a href="index.php?page=newVenue"><button name="new venue">New Venue</button></a>
-</body>
-</html>
-
+</main>
