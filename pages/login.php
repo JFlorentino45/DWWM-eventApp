@@ -30,8 +30,6 @@ if($userID == ''){
                 $_SESSION['userName'] = $user['userName'];
                 $_SESSION['role'] = $user['role'];
                 // Add any other user information you want to store in session variables here
-    
-                // Redirect the user to the home page
                 if(isset($_GET['id'])){
                     header('Location: ./index.php?page=event&id=' . $_GET['id']);
                 } else{

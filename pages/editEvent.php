@@ -14,7 +14,6 @@ if($role == 'admin' || $role == 'organiser'){
     $stmt->execute(['eventid' => $eventID, 'userid' => $userID]);
     }
     $event = $stmt->fetch();
-    var_dump($_SESSION);
     if(isset($_POST['submit'])) {
         // Get the event details from the form
         $eventName = $_POST['eventName'];
@@ -47,7 +46,6 @@ if($role == 'admin' || $role == 'organiser'){
     $venueStmt = $conn->prepare("SELECT venueName FROM venue where venueID = $venueID");
     $venueStmt->execute();
     $venue = $venueStmt->fetch();
-    var_dump($venue);
 
 } else{
     header("Location: ". TEMPLATE . '404.php');
@@ -56,7 +54,7 @@ if($role == 'admin' || $role == 'organiser'){
 
 <main>
     <h1>Edit Event</h1>
-    <form method="post">
+    <form method="POST">
         <label>Event Name:</label>
         <input type="text" name="eventName" value="<?php echo $event['eventName']; ?>">
         <label>Event Date:</label>
