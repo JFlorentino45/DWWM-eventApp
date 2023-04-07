@@ -45,14 +45,14 @@ if($role == 'admin' || $userID == getUserID()){
     <h1>Edit Profile</h1>
     <form method="POST">
         <label>User Name:</label>
-        <input type='text' id='userName' name='userName' value="<?php echo $user['userName']; ?>">
+        <input type='text' id='userName' name='userName' value="<?php echo htmlspecialchars($user['userName']); ?>">
         <label>Email:</label>
-        <input type='email' id='email' name='email' value="<?php echo $user['email']?>" required>
+        <input type='email' id='email' name='email' value="<?php echo htmlspecialchars($user['email'])?>" required>
         <?php if($role == 'admin'){
         ?>
             <label>Current Role:</label>
             <select name='role' required>
-                <option value=""><?php echo $user['role']; ?></option>
+                <option value=""><?php echo htmlspecialchars($user['role']); ?></option>
                 <option value="admin">Admin</option>
                 <option value="organiser">Organiser</option>
                 <option value="participant">Participant</option>
@@ -62,5 +62,5 @@ if($role == 'admin' || $userID == getUserID()){
         } ?>
         <input type="submit" name="submit" value="Edit Profile">
     </form>
-    <a href="index.php?page=editPassword&id=<?php echo $userID?>">Reset Password</a>
+    <a href="index.php?page=editPassword&id=<?php echo htmlspecialchars($userID)?>">Reset Password</a>
 </main>

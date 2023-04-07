@@ -11,7 +11,6 @@ changing ID in url (editEvent) as organiser no redirect to forbidden (can copy f
 Add check and error for newUser when using an existing email
 
 ToDo:
-Finish Adding stored procedures and try catch
 and httpspecialchar security
 try add event removed after refreshing page when event removed
 fix Bugs

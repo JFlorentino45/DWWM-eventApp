@@ -44,13 +44,13 @@ if($role == 'admin'){
     <h1>Edit Venue</h1>
     <form method="post">
         <label>Venue Name:</label>
-        <input type="text" name="venueName" value="<?php echo $venue['venueName']; ?>">
+        <input type="text" name="venueName" value="<?php echo htmlspecialchars($venue['venueName']); ?>">
         <label>Venue Address:</label>
-        <input type="text" name="venueAddress" value="<?php echo $venue['venueAddress']; ?>">
+        <input type="text" name="venueAddress" value="<?php echo htmlspecialchars($venue['venueAddress']); ?>">
         <label>Venue Postal Code:</label>
-        <input type="text" name="venuePostalCode" value="<?php echo $venue['venuePostalCode']; ?>">
+        <input type="text" name="venuePostalCode" value="<?php echo htmlspecialchars($venue['venuePostalCode']); ?>">
         <label>Venue Image URL:</label>
-        <input type="text" name="venueImg" value="<?php echo $venue['venueImg']; ?>">
+        <input type="text" name="venueImg" value="<?php echo htmlspecialchars($venue['venueImg']); ?>">
         <input type="submit" name="submit" value="Edit Venue">
         <input type="submit" name="delete" value="Delete Venue">
     </form>

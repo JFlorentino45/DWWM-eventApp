@@ -25,14 +25,14 @@ if($role == 'admin') {
     foreach ($events as $event) {
     ?>
         <div class="event">
-        <h1><?php echo $event['eventName']; ?></h1>
-        <img class="eventImg" src="<?php echo $event['imageURL']; ?>" alt="<?php echo $event['eventName']; ?>">
-        <p>Date: <?php echo $event['eventDate']; ?></p>
-        <p>Description: <?php echo $event['description']; ?></p>
-        <p><a href="index.php?page=editEvent&id=<?php echo $event['eventID'] ?>">
+        <h1><?php echo htmlspecialchars($event['eventName']); ?></h1>
+        <img class="eventImg" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>">
+        <p>Date: <?php echo htmlspecialchars($event['eventDate']); ?></p>
+        <p>Description: <?php echo htmlspecialchars($event['description']); ?></p>
+        <p><a href="index.php?page=editEvent&id=<?php echo htmlspecialchars($event['eventID']) ?>">
             <button name="edit">Edit Event</button>
         </a>
-        <a href="index.php?page=removeEvent&id=<?php echo $event['eventID'] ?>">
+        <a href="index.php?page=removeEvent&id=<?php echo htmlspecialchars($event['eventID']) ?>">
             <button name="remove">Remove Event</button>
         </a></p>
         </div>

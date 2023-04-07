@@ -14,7 +14,7 @@ try {
 ?>
 
 <main>
-    <h1><?php echo $venue['venueName']; ?></h1>
-    <img class="venueImg" src="<?php echo $venue['venueImg']; ?>" alt="<?php echo $venue['venueName']; ?>">
-    <p>Address: <?php echo $venue['venueAddress']. " ". $venue['venuePostalCode']; ?></p>
+    <h1><?php echo htmlspecialchars($venue['venueName']); ?></h1>
+    <img class="venueImg" src="<?php echo htmlspecialchars($venue['venueImg']); ?>" alt="<?php echo htmlspecialchars($venue['venueName']); ?>">
+    <p>Address: <?php echo htmlspecialchars($venue['venueAddress']). " ". htmlspecialchars($venue['venuePostalCode']); ?></p>
 </main>

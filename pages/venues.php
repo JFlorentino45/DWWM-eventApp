@@ -19,10 +19,10 @@
     <?php
 foreach ($venues as $venue) {
     ?>
-    <h1><?php echo $venue['venueName']; ?></h1>
-    <img class="venueImg" src="<?php echo $venue['venueImg']; ?>" alt="<?php echo $venue['venueName']; ?>">
-    <p>Address: <?php echo $venue['venueAddress']. " ". $venue['venuePostalCode']; ?></p>
-    <a href="index.php?page=editVenue&id=<?php echo $venue['venueID'] ?>"><button>Edit</button></a>
+    <h1><?php echo htmlspecialchars($venue['venueName']); ?></h1>
+    <img class="venueImg" src="<?php echo htmlspecialchars($venue['venueImg']); ?>" alt="<?php echo htmlspecialchars($venue['venueName']); ?>">
+    <p>Address: <?php echo htmlspecialchars($venue['venueAddress']). " ". htmlspecialchars($venue['venuePostalCode']); ?></p>
+    <a href="index.php?page=editVenue&id=<?php echo htmlspecialchars($venue['venueID']) ?>"><button>Edit</button></a>
     <?php
 }
 ?>

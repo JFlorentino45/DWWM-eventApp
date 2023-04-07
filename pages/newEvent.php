@@ -46,7 +46,7 @@ if($role == 'admin' || $role == 'organiser') {
         <select name="venueID" required>
             <option value="">Select a venue</option>
             <?php foreach($venues as $venue) { ?>
-                <option value="<?php echo $venue['venueID']; ?>"><?php echo $venue['venueName'] . " " . $venue['venuePostalCode']; ?></option>
+                <option value="<?php echo htmlspecialchars($venue['venueID']); ?>"><?php echo htmlspecialchars($venue['venueName']) . " " . htmlspecialchars($venue['venuePostalCode']); ?></option>
                 <?php } ?>
         </select>
         <label>Description:</label>

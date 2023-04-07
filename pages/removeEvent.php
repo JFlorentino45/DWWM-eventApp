@@ -32,7 +32,7 @@ try {
 ?>
 
 <main>
-    <h2>Are you sure you want to delete '<?php echo $event['eventName'] ?>'</h2>
+    <h2>Are you sure you want to delete '<?php echo htmlspecialchars($event['eventName']) ?>'</h2>
     <p><form method="post">
         <input type="submit" name="remove" value="Yes">
     </form>

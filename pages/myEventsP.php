@@ -31,15 +31,15 @@ if($role == 'participant'){
             
         ?>
             <div class="event">
-            <h1><?php echo $event['eventName']; ?></h1>
-            <img class="eventImg" src="<?php echo $event['imageURL']; ?>" alt="<?php echo $event['eventName']; ?>">
-            <p>Date: <?php echo $event['eventDate']; ?></p>
-            <p>Description: <?php echo $event['description']; ?></p>
-            <p>Venue: <?php echo $event['venueName']; ?> <a href="index.php?page=venue&id=<?php echo $event['venueID'] ?>">
+            <h1><?php echo htmlspecialchars($event['eventName']); ?></h1>
+            <img class="eventImg" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>">
+            <p>Date: <?php echo htmlspecialchars($event['eventDate']); ?></p>
+            <p>Description: <?php echo htmlspecialchars($event['description']); ?></p>
+            <p>Venue: <?php echo htmlspecialchars($event['venueName']); ?> <a href="index.php?page=venue&id=<?php echo htmlspecialchars($event['venueID']) ?>">
                 <button name="clickme">More Info</button></a></p>
-            <p>Address: <?php echo $event['venueAddress']; ?></p>
+            <p>Address: <?php echo htmlspecialchars($event['venueAddress']); ?></p>
             <form method="post">
-                <input type="hidden" name="eventID" value="<?php echo $event['eventID']; ?>">
+                <input type="hidden" name="eventID" value="<?php echo htmlspecialchars($event['eventID']); ?>">
                 <input type="submit" name="removeEvent" value="Remove Event">
             </form>
             </div>

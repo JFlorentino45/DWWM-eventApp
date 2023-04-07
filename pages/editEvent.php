@@ -56,25 +56,24 @@ if($role == 'admin' || $role == 'organiser'){
     <h1>Edit Event</h1>
     <form method="POST">
         <label>Event Name:</label>
-        <input type="text" name="eventName" value="<?php echo $event['eventName']; ?>">
+        <input type="text" name="eventName" value="<?php echo htmlspecialchars($event['eventName']); ?>">
         <label>Event Date:</label>
-        <input type="datetime-local" name="eventDate" value="<?php echo $event['eventDate']; ?>">
-        <!-- <p>Previous Venue: <?php echo $venue['venueName']; ?></p> -->
+        <input type="datetime-local" name="eventDate" value="<?php echo htmlspecialchars($event['eventDate']); ?>">
         <label>Venue:</label>
         <select name="newVenueID" required>
-            <option value=""><?php echo $venue['venueName']; ?></option>
+            <option value=""><?php echo htmlspecialchars($venue['venueName']); ?></option>
             <?php foreach($venues as $venue) { ?>
-                <option value="<?php echo $venue['venueID']; ?>"><?php echo $venue['venueName'] . " " . $venue['venuePostalCode']; ?></option>
+                <option value="<?php echo htmlspecialchars($venue['venueID']); ?>"><?php echo htmlspecialchars($venue['venueName']) . " " . htmlspecialchars($venue['venuePostalCode']); ?></option>
                 <?php } ?>
         </select>
         <label>Description:</label>
-        <input name="description" value="<?php echo $event['description']; ?>" required></input>
+        <input name="description" value="<?php echo htmlspecialchars($event['description']); ?>" required></input>
         <label>Event Organiser:</label>
-        <input type="text" name="eventOrganiser" value="<?php echo $event['eventOrganiser']; ?>" required>
+        <input type="text" name="eventOrganiser" value="<?php echo htmlspecialchars($event['eventOrganiser']); ?>" required>
         <label>Total Seats:</label>
-        <input type="number" name="totalSeats" value="<?php echo $event['totalSeats']; ?>" required>
+        <input type="number" name="totalSeats" value="<?php echo htmlspecialchars($event['totalSeats']); ?>" required>
         <label>Image Url:</label>
-        <input type="text" name="imageURL" value="<?php echo $event['imageURL']; ?>" required>
+        <input type="text" name="imageURL" value="<?php echo htmlspecialchars($event['imageURL']); ?>" required>
         <input type="submit" name="submit" value="Edit Event">
     </form>
 </main>

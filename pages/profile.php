@@ -18,7 +18,7 @@ if($userID){
 ?>
 
 <main>
-    <p>User Name: <?= $info['userName'] ?></p>
-    <p>Email: <?= $info['email'] ?> </p>
+    <p>User Name: <?= htmlspecialchars($info['userName']) ?></p>
+    <p>Email: <?= htmlspecialchars($info['email']) ?> </p>
     <a href="index.php?page=editUser&id=<?= $userID?>"><button>Edit Profile</button></a>
 </main>
