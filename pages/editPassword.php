@@ -1,5 +1,6 @@
 <?php 
 include('./connection/connectionString.php');
+require_once('./classes/CheckUID.php');
 require_once('./classes/AccountInfo.php');
 $control = getUserID();
 if($control == ''){
@@ -7,11 +8,12 @@ if($control == ''){
 } else{
     $role = getRole();
     $userID = $_GET['id'];
+    GetuID($userID, $conn);
     if($role == 'admin' || $userID == $control){
         if(isset($_POST['submit'])){
             if($role == 'admin'){
-                $newPassword = $_POST['newPassword'];
-                $passwordCheck = $_POST['passwordCheck'];
+                $newPassword = strip_tags($_POST['newPassword']);
+                $passwordCheck = strip_tags($_POST['passwordCheck']);
                 if($newPassword == $passwordCheck){
                     $hashed_password = password_hash($newPassword, PASSWORD_DEFAULT);
                     $stmt = $conn->prepare('CALL editPAdmin(:password_hash, :userID)');
@@ -23,7 +25,7 @@ if($control == ''){
                     echo "New Passwords do not match";
                 }
             } else{
-            $password = $_POST['oldPassword'];
+            $password = strip_tags($_POST['oldPassword']);
 
             $stmt = $conn->prepare('CALL editPGet(:userID)');
             $stmt->bindParam(':userID', $userID);
@@ -31,8 +33,8 @@ if($control == ''){
             $passwordData = $stmt->fetch();
 
             if(password_verify($password, $passwordData['password_hash']) || $role == 'admin') {
-                $newPassword = $_POST['newPassword'];
-                $passwordCheck = $_POST['passwordCheck'];
+                $newPassword = strip_tags($_POST['newPassword']);
+                $passwordCheck = strip_tags($_POST['passwordCheck']);
                 if($newPassword == $passwordCheck){
                     $hashed_password = password_hash($newPassword, PASSWORD_DEFAULT);
                     $stmt = $conn->prepare('CALL editPUser(:password_hash, :userID)');

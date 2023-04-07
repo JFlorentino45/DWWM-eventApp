@@ -1,16 +1,15 @@
 
 <?php
 require_once('./connection/connectionString.php');
-$venueID = $_GET['id'];
+require_once('./classes/CheckVID.php');
 
-try {
-    $stmt = $conn->prepare("CALL venueGetVenue(:venueID)");
-    $stmt->bindParam(':venueID', $venueID);
-    $stmt->execute();
-    $venue = $stmt->fetch();
-} catch(PDOException $e){
-    echo "Error executing the stored procedure: " . $e->getMessage();
-}
+$venueID = $_GET['id'];
+GetvID($venueID, $conn);
+
+$stmt = $conn->prepare("CALL venueGetVenue(:venueID)");
+$stmt->bindParam(':venueID', $venueID);
+$stmt->execute();
+$venue = $stmt->fetch();
 ?>
 
 <main>

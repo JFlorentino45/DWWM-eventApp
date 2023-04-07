@@ -10,10 +10,9 @@ if($userID !== null){
 }
 
 if(isset($_POST['submit'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = strip_tags($_POST['email']);
+    $password = strip_tags($_POST['password']);
 
-    try {
         $stmt = $conn->prepare("CALL loginGetEmail(:email)");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
@@ -40,9 +39,6 @@ if(isset($_POST['submit'])) {
         } else {
             echo "No user found with the given email.";
         }
-    } catch(PDOException $e){
-        echo "Error executing the stored procedure: " . $e->getMessage();
-    }
 }
 ?>
 

@@ -1,7 +1,9 @@
 <?php
 include('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
+require_once('./classes/CheckEID.php');
 $eventID = $_GET['id'];
+GeteID($eventID, $conn);
 $role = getRole();
 $userID = getUserID();
 

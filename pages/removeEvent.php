@@ -1,11 +1,14 @@
 <?php
 require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
+require_once('./classes/CheckEID.php');
+
 $role = getRole();
 $userID = getUserID();
 $eventID = $_GET['id'];
+GeteID($eventID, $conn);
 
-try {
+
     $stmt = $conn->prepare("CALL removeEventGetName(:eventID)");
     $stmt->bindParam(':eventID', $eventID);
     $stmt->execute();
@@ -26,9 +29,6 @@ try {
     } else{
         header("Location: ". TEMPLATE . '403.php');
     }
-} catch(PDOException $e){
-    echo "Error executing the stored procedure: " . $e->getMessage();
-}
 ?>
 
 <main>

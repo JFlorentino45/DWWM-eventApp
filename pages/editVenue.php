@@ -1,8 +1,11 @@
 <?php 
 include('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
+require_once('./classes/CheckVID.php');
+
 $role = getRole();
 $venueID = $_GET['id'];
+GetvID($venueID, $conn);
 
 if($role == 'admin'){
     $stmt = $conn->prepare("SELECT * FROM venue WHERE venueID = :id");
@@ -11,10 +14,10 @@ if($role == 'admin'){
     
     if(isset($_POST['submit'])) {
         // Get the event details from the form
-        $venueName = $_POST['venueName'];
-        $venueAddress = $_POST['venueAddress'];
-        $venuePostalCode = $_POST['venuePostalCode'];
-        $venueImg = $_POST['venueImg'];
+        $venueName = strip_tags($_POST['venueName']);
+        $venueAddress = strip_tags($_POST['venueAddress']);
+        $venuePostalCode = strip_tags($_POST['venuePostalCode']);
+        $venueImg = strip_tags($_POST['venueImg']);
     
         $stmt = $conn->prepare('CALL editVUpdate(:venueName, :venueAddress, :venuePostalCode, :venueImg, :venueID)');
         $stmt->bindParam(':venueName', $venueName);

@@ -5,20 +5,16 @@ $role = getRole();
 if($role == 'admin' || $role == 'organiser'){
     if(isset($_POST['submit'])) {
         // Get the event details from the form
-        $venueName = $_POST['venueName'];
-        $venueAddress = $_POST['venueAddress'];
-        $venuePostalCode = $_POST['venuePostalCode'];
-        $venueImg = $_POST['venueImg'];
-        try {
+        $venueName = strip_tags($_POST['venueName']);
+        $venueAddress = strip_tags($_POST['venueAddress']);
+        $venuePostalCode = strip_tags($_POST['venuePostalCode']);
+        $venueImg = strip_tags($_POST['venueImg']);
             $stmt = $conn->prepare("CALL newVenueCreate(:venueName, :venueAddress, :venuePostalCode, :venueImg)");
             $stmt->bindParam(':venueName', $venueName);
             $stmt->bindParam(':venueAddress', $venueAddress);
             $stmt->bindParam(':venuePostalCode', $venuePostalCode);
             $stmt->bindParam(':venueImg', $venueImg);
             $stmt->execute();
-        } catch(PDOException $e){
-            echo "Error executing the stored procedure: " . $e->getMessage();
-        }
     
         header('Location: index.php');
         exit();

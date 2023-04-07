@@ -6,13 +6,13 @@ $role = getRole();
 $userID = getUserID();
 if($role == 'admin' || $role == 'organiser') {
     if(isset($_POST['submit'])) {
-        $eventName = $_POST['eventName'];
-        $eventDate = $_POST['eventDate'];
-        $venueID = $_POST['venueID'];
-        $description = $_POST['description'];
-        $eventOrganiser = $_POST['eventOrganiser'];
-        $totalSeats = $_POST['totalSeats'];
-        $imageURL = $_POST['imageURL'];
+        $eventName = strip_tags($_POST['eventName']);
+        $eventDate = strip_tags($_POST['eventDate']);
+        $venueID = strip_tags($_POST['venueID']);
+        $description = strip_tags($_POST['description']);
+        $eventOrganiser = strip_tags($_POST['eventOrganiser']);
+        $totalSeats = strip_tags($_POST['totalSeats']);
+        $imageURL = strip_tags($_POST['imageURL']);
         $stmt = $conn->prepare("CALL newEventCreate(:userID, :eventName, :eventDate, :venueID, :description, :eventOrganiser, :totalSeats, :imageURL)");
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':eventName', $eventName);

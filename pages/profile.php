@@ -4,14 +4,10 @@ require_once('./classes/AccountInfo.php');
 $userID = getUserID();
 
 if($userID){
-    try {
         $stmt = $conn->prepare("CALL profileGet(:userID)");
         $stmt->bindParam(':userID', $userID);
         $stmt->execute();
         $info = $stmt->fetch();
-    } catch(PDOException $e){
-        echo "Error executing the stored procedure: " . $e->getMessage();
-    }
 } else{
     header("Location: ". TEMPLATE . '403.php');
 }

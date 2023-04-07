@@ -1,6 +1,8 @@
 <?php 
 include('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
+require_once('./classes/CheckUID.php');
+
 $control = getUserID();
 
 if($control == ''){
@@ -8,6 +10,8 @@ if($control == ''){
 }
 $role = getRole();
 $userID = $_GET['id'];
+GetuID($userID, $conn);
+
 if($role == 'admin' || $userID == getUserID()){
     $stmt = $conn->prepare("SELECT * FROM user WHERE userID = :userid");
     $stmt->execute(['userid' => $userID]);
@@ -19,15 +23,15 @@ if($role == 'admin' || $userID == getUserID()){
         header('Location: index.php');
     }
     if(isset($_POST['submit'])) {
-        $userName = $_POST['userName'];
-        $email = $_POST['email'];
+        $userName = strip_tags($_POST['userName']);
+        $email = strip_tags($_POST['email']);
         $stmt = $conn->prepare('CALL editUAll(:userName, :email, :userID)');
         $stmt->bindParam(':userName', $userName);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':userID', $userID);
         $stmt->execute();
         if($role == 'admin'){
-        $role = $_POST['role'];
+        $role = strip_tags($_POST['role']);
         $stmt = $conn->prepare('CALL editURole(:role, :userID)');
         $stmt->bindParam(':role', $role);
         $stmt->bindParam(':userID', $userID);

@@ -1,9 +1,11 @@
 <?php
 require_once('./connection/connectionString.php');
+require_once('./classes/CheckEID.php');
 require_once('./classes/AccountInfo.php');
 $role = getRole();
 $userID = getUserID();
 $eventID = $_GET['id'];
+GeteID($eventID, $conn);
 
 if($role == 'admin' || $role == 'organiser'){
     if($role == 'admin'){
@@ -16,13 +18,13 @@ if($role == 'admin' || $role == 'organiser'){
     $event = $stmt->fetch();
     if(isset($_POST['submit'])) {
         // Get the event details from the form
-        $eventName = $_POST['eventName'];
-        $eventDate = $_POST['eventDate'];
-        $venueID = $_POST['newVenueID'];
-        $description = $_POST['description'];
-        $eventOrganiser = $_POST['eventOrganiser'];
-        $totalSeats = $_POST['totalSeats'];
-        $imageURL = $_POST['imageURL'];
+        $eventName = strip_tags($_POST['eventName']);
+        $eventDate = strip_tags($_POST['eventDate']);
+        $venueID = strip_tags($_POST['newVenueID']);
+        $description = strip_tags($_POST['description']);
+        $eventOrganiser = strip_tags($_POST['eventOrganiser']);
+        $totalSeats = strip_tags($_POST['totalSeats']);
+        $imageURL = strip_tags($_POST['imageURL']);
     
         // Insert the event details into the events table
         $stmt = $conn->prepare('CALL editEUpdate(:eventName, :eventDate, :venueID, :description, :eventOrganiser, :totalSeats, :imageURL, :eventID)');

@@ -4,13 +4,9 @@
     require_once('./classes/AccountInfo.php');
     $role = getRole();
     if($role == 'admin'){
-        try {
             $stmt = $conn->prepare("CALL venuesGetAll()");
             $stmt->execute();
             $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch(PDOException $e){
-            echo "Error executing the stored procedure: " . $e->getMessage();
-        }
     } else {
         header("Location: ". TEMPLATE . '403.php');
     }

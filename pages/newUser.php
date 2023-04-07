@@ -3,14 +3,13 @@
 require_once('./connection/connectionString.php');
 
 if (isset($_POST['submit'])) {
-  $username = $_POST["username"];
-  $email = $_POST["email"];
+  $username = strip_tags($_POST["username"]);
+  $email = strip_tags($_POST["email"]);
   $role = 'participant';
-  $password = $_POST["password"];
+  $password = strip_tags($_POST["password"]);
 
   $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-  try {
     $stmt = $conn->prepare("CALL newUserCreate(:username, :email, :role)");
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':email', $email);
@@ -27,9 +26,6 @@ if (isset($_POST['submit'])) {
     $stmt->bindParam(':userID', $userID);
     $stmt->bindParam(':password_hash', $hashed_password);
     $stmt->execute();
-  } catch(PDOException $e){
-      echo "Error executing the stored procedure: " . $e->getMessage();
-  }
 
   if(isset($_GET['id'])){
 
