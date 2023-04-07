@@ -25,8 +25,7 @@ if($role == 'admin' || $role == 'organiser'){
         $imageURL = $_POST['imageURL'];
     
         // Insert the event details into the events table
-        $stmt = $conn->prepare("UPDATE event SET eventName = :eventName, eventDate = :eventDate, venueID = :venueID, description = :description, eventOrganiser = :eventOrganiser, totalSeats = :totalSeats, imageURL = :imageURL WHERE eventID = :eventID");
-        $stmt->bindParam(':eventID', $eventID);
+        $stmt = $conn->prepare('CALL editEUpdate(:eventName, :eventDate, :venueID, :description, :eventOrganiser, :totalSeats, :imageURL, :eventID)');
         $stmt->bindParam(':eventName', $eventName);
         $stmt->bindParam(':eventDate', $eventDate);
         $stmt->bindParam(':venueID', $venueID);
@@ -34,6 +33,7 @@ if($role == 'admin' || $role == 'organiser'){
         $stmt->bindParam(':eventOrganiser', $eventOrganiser);
         $stmt->bindParam(':totalSeats', $totalSeats);
         $stmt->bindParam(':imageURL', $imageURL);
+        $stmt->bindParam(':eventID', $eventID);
         $stmt->execute();
     
         header('Location: index.php?page=myEventsO');
@@ -48,7 +48,7 @@ if($role == 'admin' || $role == 'organiser'){
     $venue = $venueStmt->fetch();
 
 } else{
-    header("Location: ". TEMPLATE . '404.php');
+    header("Location: ". TEMPLATE . '403.php');
 }
 ?>
 

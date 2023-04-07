@@ -16,7 +16,7 @@ if($role == 'admin'){
         $venuePostalCode = $_POST['venuePostalCode'];
         $venueImg = $_POST['venueImg'];
     
-        $stmt = $conn->prepare("UPDATE venue SET venueName = :venueName, venueAddress = :venueAddress, venuePostalCode = :venuePostalCode, venueImg = :venueImg WHERE venueID = :venueID");
+        $stmt = $conn->prepare('CALL editVUpdate(:venueName, :venueAddress, :venuePostalCode, :venueImg, :venueID)');
         $stmt->bindParam(':venueName', $venueName);
         $stmt->bindParam(':venueAddress', $venueAddress);
         $stmt->bindParam(':venuePostalCode', $venuePostalCode);
@@ -27,8 +27,16 @@ if($role == 'admin'){
         header('Location: index.php?page=venues');
         exit();
     }
+    if(isset($_POST['delete'])) {
+        $stmt = $conn->prepare('CALL editVDelete(:venueID)');
+        $stmt->bindParam(':venueID', $venueID);
+        $stmt->execute();
+
+        header('Location: index.php?page=venues');
+        exit();
+    }
 } else{
-    header("Location: ". TEMPLATE . '404.php');
+    header("Location: ". TEMPLATE . '403.php');
 }
 ?>
 
@@ -44,5 +52,6 @@ if($role == 'admin'){
         <label>Venue Image URL:</label>
         <input type="text" name="venueImg" value="<?php echo $venue['venueImg']; ?>">
         <input type="submit" name="submit" value="Edit Venue">
+        <input type="submit" name="delete" value="Delete Venue">
     </form>
 </main>

@@ -4,7 +4,7 @@ require_once('./classes/AccountInfo.php');
 $control = getUserID();
 
 if($control == ''){
-    header("Location: ". TEMPLATE . '404.php');
+    header("Location: ". TEMPLATE . '403.php');
 }
 $role = getRole();
 $userID = $_GET['id'];
@@ -12,23 +12,23 @@ if($role == 'admin' || $userID == getUserID()){
     $stmt = $conn->prepare("SELECT * FROM user WHERE userID = :userid");
     $stmt->execute(['userid' => $userID]);
     $user = $stmt->fetch();
+    if(isset($_POST['delete'])) {
+        $stmt = $conn->prepare('CALL editUDelete(:userID)');
+        $stmt->bindParam(':userID', $userID);
+        $stmt->execute();
+        header('Location: index.php');
+    }
     if(isset($_POST['submit'])) {
         $userName = $_POST['userName'];
         $email = $_POST['email'];
-        $stmt = $conn->prepare(
-            'UPDATE user 
-            SET userName = :userName, email = :email
-            WHERE userID = :userID');
+        $stmt = $conn->prepare('CALL editUAll(:userName, :email, :userID)');
         $stmt->bindParam(':userName', $userName);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':userID', $userID);
         $stmt->execute();
         if($role == 'admin'){
         $role = $_POST['role'];
-        $stmt = $conn->prepare(
-            'UPDATE user 
-            SET role = :role 
-            WHERE userID = :userID');
+        $stmt = $conn->prepare('CALL editURole(:role, :userID)');
         $stmt->bindParam(':role', $role);
         $stmt->bindParam(':userID', $userID);
         $stmt->execute();
@@ -37,7 +37,7 @@ if($role == 'admin' || $userID == getUserID()){
     }
 
 } else{
-    header("Location: ". TEMPLATE . '404.php');
+    header("Location: ". TEMPLATE . '403.php');
 }
 ?>
 
@@ -57,6 +57,7 @@ if($role == 'admin' || $userID == getUserID()){
                 <option value="organiser">Organiser</option>
                 <option value="participant">Participant</option>
             </select>
+            <input type="submit" name="delete" value="Delete Profile">
         <?php
         } ?>
         <input type="submit" name="submit" value="Edit Profile">

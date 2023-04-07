@@ -9,19 +9,22 @@ if($role == 'admin' || $role == 'organiser'){
         $venueAddress = $_POST['venueAddress'];
         $venuePostalCode = $_POST['venuePostalCode'];
         $venueImg = $_POST['venueImg'];
-    
-        $stmt = $conn->prepare("INSERT INTO venue (venueName, venueAddress, venuePostalCode, venueImg) VALUES (:venueName, :venueAddress, :venuePostalCode, :venueImg)");
-        $stmt->bindParam(':venueName', $venueName);
-        $stmt->bindParam(':venueAddress', $venueAddress);
-        $stmt->bindParam(':venuePostalCode', $venuePostalCode);
-        $stmt->bindParam(':venueImg', $venueImg);
-        $stmt->execute();
+        try {
+            $stmt = $conn->prepare("CALL newVenueCreate(:venueName, :venueAddress, :venuePostalCode, :venueImg)");
+            $stmt->bindParam(':venueName', $venueName);
+            $stmt->bindParam(':venueAddress', $venueAddress);
+            $stmt->bindParam(':venuePostalCode', $venuePostalCode);
+            $stmt->bindParam(':venueImg', $venueImg);
+            $stmt->execute();
+        } catch(PDOException $e){
+            echo "Error executing the stored procedure: " . $e->getMessage();
+        }
     
         header('Location: index.php');
         exit();
     }
 } else {
-    header("Location: ". TEMPLATE . '404.php');
+    header("Location: ". TEMPLATE . '403.php');
 }
 
 ?>

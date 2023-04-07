@@ -1,7 +1,7 @@
 
 <?php
     include('./connection/connectionString.php');
-    $stmt = $conn->prepare("SELECT * FROM event");
+    $stmt = $conn->prepare('CALL homeGET()');
     $stmt->execute();
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>

@@ -1,3 +1,4 @@
+
 <?php
 require_once('./connection/connectionString.php');
 
@@ -7,27 +8,29 @@ if (isset($_POST['submit'])) {
   $role = 'participant';
   $password = $_POST["password"];
 
-  // hash password
   $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+  try {
+    $stmt = $conn->prepare("CALL newUserCreate(:username, :email, :role)");
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':role', $role);
+    $stmt->execute();
 
-  // insert user details into user table
-  $stmt = $conn->prepare("INSERT INTO user (userName, email, role) VALUES (:username, :email, :role)");
-  $stmt->bindParam(':username', $username);
-  $stmt->bindParam(':email', $email);
-  $stmt->bindParam(':role', $role);
-  $stmt->execute();
+    $stmt = $conn->prepare("CALL newUserGetID(:email)");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $ID = $stmt->fetch();
+    $userID = $ID['userID'];
+    
+    $stmt = $conn->prepare("CALL newUserPass(:userID, :password_hash)");
+    $stmt->bindParam(':userID', $userID);
+    $stmt->bindParam(':password_hash', $hashed_password);
+    $stmt->execute();
+  } catch(PDOException $e){
+      echo "Error executing the stored procedure: " . $e->getMessage();
+  }
 
-  // get the ID of the new user
-  $userID = $conn->lastInsertId();
-
-  // insert hashed password value into password table
-  $stmt = $conn->prepare("INSERT INTO password (userID, password_hash) VALUES (:userID, :password_hash)");
-  $stmt->bindParam(':userID', $userID);
-  $stmt->bindParam(':password_hash', $hashed_password);
-  $stmt->execute();
-
-  // redirect the user to the login page
   if(isset($_GET['id'])){
 
     header('Location: ./index.php?page=login&id=' . $_GET['id']);

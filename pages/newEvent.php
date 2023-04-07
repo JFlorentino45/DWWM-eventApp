@@ -5,9 +5,7 @@ require_once('./classes/AccountInfo.php');
 $role = getRole();
 $userID = getUserID();
 if($role == 'admin' || $role == 'organiser') {
-    // Check if the form has been submitted
     if(isset($_POST['submit'])) {
-        // Get the event details from the form
         $eventName = $_POST['eventName'];
         $eventDate = $_POST['eventDate'];
         $venueID = $_POST['venueID'];
@@ -15,8 +13,7 @@ if($role == 'admin' || $role == 'organiser') {
         $eventOrganiser = $_POST['eventOrganiser'];
         $totalSeats = $_POST['totalSeats'];
         $imageURL = $_POST['imageURL'];
-        // Insert the event details into the events table
-        $stmt = $conn->prepare("INSERT INTO event (userID, eventName, eventDate, venueID, description, eventOrganiser, totalSeats, imageURL) VALUES (:userID, :eventName, :eventDate, :venueID, :description, :eventOrganiser, :totalSeats, :imageURL)");
+        $stmt = $conn->prepare("CALL newEventCreate(:userID, :eventName, :eventDate, :venueID, :description, :eventOrganiser, :totalSeats, :imageURL)");
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':eventName', $eventName);
         $stmt->bindParam(':eventDate', $eventDate);
@@ -30,11 +27,11 @@ if($role == 'admin' || $role == 'organiser') {
         header('Location: index.php');
         exit();
     }
-    $venuesStmt = $conn->prepare("SELECT venueID, venueName,venuePostalCode FROM venue");
+    $venuesStmt = $conn->prepare("CALL newEventGetVenue()");
     $venuesStmt->execute();
     $venues = $venuesStmt->fetchAll(PDO::FETCH_ASSOC);
 } else{
-    header("Location: ". TEMPLATE . '404.php');
+    header("Location: ". TEMPLATE . '403.php');
 }
 ?>
 

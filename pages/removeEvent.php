@@ -5,21 +5,29 @@ $role = getRole();
 $userID = getUserID();
 $eventID = $_GET['id'];
 
-$stmt = $conn->prepare("SELECT eventName FROM event WHERE eventID = $eventID");
-$stmt->execute();
-$event = $stmt->fetch();
-$stmt = $conn->prepare("SELECT COUNT(*) FROM event WHERE userID = $userID AND eventID = $eventID");
-$stmt->execute();
-$count = $stmt->fetchColumn();
-
-if($count > 0 || $role == 'admin'){
-    if(isset($_POST['remove'])) {
-    $stmt = $conn->prepare("DELETE FROM event WHERE eventID = $eventID");
+try {
+    $stmt = $conn->prepare("CALL removeEventGetName(:eventID)");
+    $stmt->bindParam(':eventID', $eventID);
     $stmt->execute();
-    header('Location: index.php?page=myEventsO');
+    $event = $stmt->fetch();
+    $stmt = $conn->prepare("CALL removeEventCount(:userID, :eventID)");
+    $stmt->bindParam(':userID', $userID);
+    $stmt->bindParam(':eventID', $eventID);
+    $stmt->execute();
+    $count = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
+    
+    if($count > 0 || $role == 'admin'){
+        if(isset($_POST['remove'])) {
+        $stmt = $conn->prepare("CALL removeEventDelete(:eventID)");
+        $stmt->bindParam(':eventID', $eventID);
+        $stmt->execute();
+        header('Location: index.php?page=myEventsO');
+        }
+    } else{
+        header("Location: ". TEMPLATE . '403.php');
     }
-} else{
-    header("Location: ". TEMPLATE . '404.php');
+} catch(PDOException $e){
+    echo "Error executing the stored procedure: " . $e->getMessage();
 }
 ?>
 

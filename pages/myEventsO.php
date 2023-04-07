@@ -1,24 +1,20 @@
 <?php
 include('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
-$id = getUserID();
+$userID = getUserID();
 $role = getRole();
 
 if($role == 'admin') {
-    $stmt = $conn->prepare(
-        'SELECT DISTINCT event.*
-        FROM event');
+    $stmt = $conn->prepare('CALL myEOAdmin()');
     $stmt->execute();
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } elseif($role == 'organiser') {
-    $stmt = $conn->prepare(
-        'SELECT DISTINCT event.*
-        FROM event
-        WHERE event.userID = :id');
-    $stmt->execute(['id' => $id]);
+    $stmt = $conn->prepare('CALL myEOOrg(:userID)');
+    $stmt->bindParam(':userID', $userID);
+    $stmt->execute();
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else{
-    header("Location: ". TEMPLATE . '404.php');
+    header("Location: ". TEMPLATE . '403.php');
 }
 ?>
 

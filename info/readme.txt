@@ -5,15 +5,32 @@ john@john.com P
 paul@paul.com P
 new@new.com P
 
-sql test for home page
-SELECT \*
-FROM event LEFT JOIN participate on event.eventID=participate.eventID
-AND participate.userID;
-
-SELECT event.\*,
-(CASE WHEN p.userID IS NULL THEN 'Not signed up' ELSE 'Signed up' END) AS signedUp
-FROM event LEFT JOIN participate p ON event.eventID=p.eventID AND p.userID=63;
-
 Bugs:
-page=editVenue this no ID error (as Admin)
-editEvent bug when trying to edit as Admin
+Fix case where anyone types an ID in the url that doesn't exist
+changing ID in url (editEvent) as organiser no redirect to forbidden (can copy from editUser)
+Add check and error for newUser when using an existing email
+
+ToDo:
+Finish Adding stored procedures and try catch
+and httpspecialchar security
+try add event removed after refreshing page when event removed
+fix Bugs
+add lots of events and users
+create filters and test (seats available logic)
+htaccess
+CSS
+refactoring
+
+
+try {
+
+} catch(PDOException $e){
+    echo "Error executing the stored procedure: " . $e->getMessage();
+}
+
+DELIMITER $$
+CREATE PROCEDURE loginGetUser(IN userEmail VARCHAR(255))
+BEGIN
+    SELECT * FROM user WHERE email = userEmail;
+END $$
+DELIMITER ;

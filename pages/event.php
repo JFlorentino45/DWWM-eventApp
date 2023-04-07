@@ -29,8 +29,10 @@ if(isset($_POST['addEvent'])) {
     } elseif($numParticipants == $totalSeats) {
         echo "Sorry, this event is full!"; 
     } else {
-        $stmt = $conn->prepare("INSERT INTO participate (userID, eventID) VALUES (:userID, :eventID)");
-        $stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
+        $stmt = $conn->prepare('CALL eventAdd(:userID, :eventID)');
+        $stmt->bindParam(':userID', $userID);
+        $stmt->bindParam(':eventID', $eventID);
+        $stmt->execute();
         echo "Event added to your events list!";
     }
 }

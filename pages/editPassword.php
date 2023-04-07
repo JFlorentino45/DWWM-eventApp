@@ -3,7 +3,7 @@ include('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 $control = getUserID();
 if($control == ''){
-    header("Location: ". TEMPLATE . '404.php');
+    header("Location: ". TEMPLATE . '403.php');
 } else{
     $role = getRole();
     $userID = $_GET['id'];
@@ -14,12 +14,9 @@ if($control == ''){
                 $passwordCheck = $_POST['passwordCheck'];
                 if($newPassword == $passwordCheck){
                     $hashed_password = password_hash($newPassword, PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare(
-                        'UPDATE password 
-                        SET password_hash = :password_hash
-                        WHERE userID = :userID');
-                    $stmt->bindParam(':userID', $userID);
+                    $stmt = $conn->prepare('CALL editPAdmin(:password_hash, :userID)');
                     $stmt->bindParam(':password_hash', $hashed_password);
+                    $stmt->bindParam(':userID', $userID);
                     $stmt->execute();
                     echo "Password Reset!";
                 } else{
@@ -28,8 +25,9 @@ if($control == ''){
             } else{
             $password = $_POST['oldPassword'];
 
-            $stmt = $conn->prepare("SELECT password_hash FROM password WHERE userID = :userID");
-            $stmt->execute([':userID' => $userID]);
+            $stmt = $conn->prepare('CALL editPGet(:userID)');
+            $stmt->bindParam(':userID', $userID);
+            $stmt->execute();
             $passwordData = $stmt->fetch();
 
             if(password_verify($password, $passwordData['password_hash']) || $role == 'admin') {
@@ -37,10 +35,7 @@ if($control == ''){
                 $passwordCheck = $_POST['passwordCheck'];
                 if($newPassword == $passwordCheck){
                     $hashed_password = password_hash($newPassword, PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare(
-                        'UPDATE password 
-                        SET password_hash = :password_hash
-                        WHERE userID = :userID');
+                    $stmt = $conn->prepare('CALL editPUser(:password_hash, :userID)');
                     $stmt->bindParam(':userID', $userID);
                     $stmt->bindParam(':password_hash', $hashed_password);
                     $stmt->execute();
@@ -57,7 +52,7 @@ if($control == ''){
         }
 
     } else{
-        header("Location: ". TEMPLATE . '404.php');
+        header("Location: ". TEMPLATE . '403.php');
     }
 }
 ?>
