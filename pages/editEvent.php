@@ -56,7 +56,7 @@ if($role == 'admin' || $role == 'organiser'){
 
 <main>
     <h1>Edit Event</h1>
-    <form method="POST">
+    <form method="POST" onsubmit='return confirm("Are you sure you want to edit this event?")'>
         <label>Event Name:</label>
         <input type="text" name="eventName" value="<?php echo htmlspecialchars($event['eventName']); ?>">
         <label>Event Date:</label>

@@ -11,8 +11,6 @@ changing ID in url (editEvent) as organiser no redirect to forbidden (can copy f
 Add check and error for newUser when using an existing email
 
 ToDo:
-and httpspecialchar security
-try add event removed after refreshing page when event removed
 fix Bugs
 add lots of events and users
 create filters and test (seats available logic)
@@ -21,11 +19,6 @@ CSS
 refactoring
 
 
-try {
-
-} catch(PDOException $e){
-    echo "Error executing the stored procedure: " . $e->getMessage();
-}
 
 DELIMITER $$
 CREATE PROCEDURE loginGetUser(IN userEmail VARCHAR(255))

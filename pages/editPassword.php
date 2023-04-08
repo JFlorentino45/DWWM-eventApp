@@ -61,7 +61,7 @@ if($control == ''){
 
 <main>
     <h1>Reset Password</h1>
-    <form method="POST">
+    <form method="POST" onsubmit='return confirm("Are you sure?")'>
         <?php
         if($role != 'admin'){
         ?>
@@ -74,8 +74,7 @@ if($control == ''){
         <input type="password" name="newPassword" required>
         <label>Confirm Password:</label>
         <input type="password" name="passwordCheck" required>
-        <label>Are you sure?</label>
-        <input type="submit" name="submit" value="Yes">
+        <input type="submit" name="submit" value="Change Password">
     </form>
     <a href="index.php"><button>Cancel</button></a>
 </main>

@@ -45,7 +45,7 @@ if($role == 'admin'){
 
 <main>
     <h1>Edit Venue</h1>
-    <form method="post">
+    <form method="post" onsubmit='return confirm("Are you sure?")'>
         <label>Venue Name:</label>
         <input type="text" name="venueName" value="<?php echo htmlspecialchars($venue['venueName']); ?>">
         <label>Venue Address:</label>

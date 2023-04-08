@@ -47,7 +47,7 @@ if($role == 'admin' || $userID == getUserID()){
 
 <main>
     <h1>Edit Profile</h1>
-    <form method="POST">
+    <form method="POST" onsubmit='return confirm("Are you sure?")'>
         <label>User Name:</label>
         <input type='text' id='userName' name='userName' value="<?php echo htmlspecialchars($user['userName']); ?>">
         <label>Email:</label>

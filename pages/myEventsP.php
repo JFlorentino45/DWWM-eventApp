@@ -1,6 +1,8 @@
 <?php
 include('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
+require_once('./classes/Alert.php');
+
 $role = getRole();
 $userID = getUserID();
 if($role == 'participant'){
@@ -38,7 +40,7 @@ if($role == 'participant'){
             <p>Venue: <?php echo htmlspecialchars($event['venueName']); ?> <a href="index.php?page=venue&id=<?php echo htmlspecialchars($event['venueID']) ?>">
                 <button name="clickme">More Info</button></a></p>
             <p>Address: <?php echo htmlspecialchars($event['venueAddress']); ?></p>
-            <form method="post">
+            <form method="post" onsubmit='return confirm("Are you sure you want unsubscribe from this event?")'>
                 <input type="hidden" name="eventID" value="<?php echo htmlspecialchars($event['eventID']); ?>">
                 <input type="submit" name="removeEvent" value="Remove Event">
             </form>
