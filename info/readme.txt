@@ -9,7 +9,7 @@ Bugs:
 
 ToDo:
 add lots of events and users
-create filters and test (seats available logic)
+create filters and test
 htaccess
 CSS
 popup for sign up

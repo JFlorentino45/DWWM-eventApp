@@ -22,6 +22,7 @@ $stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE userID = :userID 
 $stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
 $count = $stmt->fetchColumn();
 $totalSeats = $event['totalSeats'];
+$seatsRemaining = ($totalSeats - $numParticipants);
 
 if(isset($_POST['addEvent'])) {
     if($count > 0) {
@@ -51,6 +52,11 @@ if(isset($_POST['addEvent'])) {
     } ?>
     <p>Address: <?php echo htmlspecialchars($event['venueAddress']); ?></p>
     <?php
+    if($seatsRemaining < 11 && $seatsRemaining > 1){
+        ?> <h3>Only <?= $seatsRemaining?> seats left!</h3> <?php
+    } elseif($seatsRemaining == 1){
+        ?> <h3>Only <?= $seatsRemaining?> seat left!</h3> <?php
+    }
     if($numParticipants == $totalSeats){
         ?> <h3>Sorry this event is full</h3> <?php
     } else{
@@ -64,7 +70,7 @@ if(isset($_POST['addEvent'])) {
         <?php
         if($role == 'guest')
         { ?>
-            <p>To sign up for an event ->
+            <p>To sign up for this event ->
             <a href="index.php?page=login&id=<?= htmlspecialchars($eventID)?>"><button>Login</button></a>
             or <a href="index.php?page=newUser&id=<?= htmlspecialchars($eventID)?>"><button>Create Account</button></a></p>
         <?php
