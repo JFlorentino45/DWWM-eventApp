@@ -7,15 +7,11 @@ $userID = getUserID();
 $eventID = $_GET['id'];
 GeteID($eventID, $conn);
 
-if($role == 'admin' || $role == 'organiser'){
-    if($role == 'admin'){
-        $stmt = $conn->prepare("SELECT * FROM event WHERE eventID = :eventid");
-        $stmt->execute(['eventid' => $eventID]);
-    } else{
-    $stmt = $conn->prepare("SELECT * FROM event WHERE eventID = :eventid AND userID = :userid");
-    $stmt->execute(['eventid' => $eventID, 'userid' => $userID]);
-    }
-    $event = $stmt->fetch();
+$stmt = $conn->prepare("SELECT * FROM event WHERE eventID = :eventid");
+$stmt->execute(['eventid' => $eventID]);
+$event = $stmt->fetch();
+if($role == 'admin' || $event['userID'] == $userID){
+    
     if(isset($_POST['submit'])) {
         // Get the event details from the form
         $eventName = strip_tags($_POST['eventName']);

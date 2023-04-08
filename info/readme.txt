@@ -6,16 +6,13 @@ paul@paul.com P
 new@new.com P
 
 Bugs:
-Fix case where anyone types an ID in the url that doesn't exist
-changing ID in url (editEvent) as organiser no redirect to forbidden (can copy from editUser)
-Add check and error for newUser when using an existing email
 
 ToDo:
-fix Bugs
 add lots of events and users
 create filters and test (seats available logic)
 htaccess
 CSS
+popup for sign up
 refactoring
 
 

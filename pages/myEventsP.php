@@ -1,7 +1,6 @@
 <?php
 include('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
-require_once('./classes/Alert.php');
 
 $role = getRole();
 $userID = getUserID();

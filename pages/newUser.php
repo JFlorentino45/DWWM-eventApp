@@ -9,7 +9,13 @@ if (isset($_POST['submit'])) {
   $password = strip_tags($_POST["password"]);
 
   $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
+  $stmt = $conn->prepare('SELECT email FROM user WHERE email = :email');
+  $stmt->bindParam(':email', $email);
+  $stmt->execute();
+  $usedEmail = $stmt->fetch();
+  if ($usedEmail){
+    echo "<script>alert('Email already exists');</script>";
+  } else{
     $stmt = $conn->prepare("CALL newUserCreate(:username, :email, :role)");
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':email', $email);
@@ -33,6 +39,7 @@ if (isset($_POST['submit'])) {
   } else
   header('Location: ./index.php?page=login');
   exit();
+  }
 }
 
 ?>

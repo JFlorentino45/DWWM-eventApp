@@ -18,24 +18,20 @@ $stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE eventID = :eventI
 $stmt->execute(['eventID' => $eventID]);
 $numParticipants = $stmt->fetchColumn();
 
+$stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE userID = :userID AND eventID = :eventID");
+$stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
+$count = $stmt->fetchColumn();
+$totalSeats = $event['totalSeats'];
+
 if(isset($_POST['addEvent'])) {
-
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE userID = :userID AND eventID = :eventID");
-    $stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
-    $count = $stmt->fetchColumn();
-
-    $totalSeats = $event['totalSeats'];
-
     if($count > 0) {
-        echo "You have already signed up to this event!";
-    } elseif($numParticipants == $totalSeats) {
-        echo "Sorry, this event is full!"; 
+        echo "<script>alert('You have already signed up to this event!');</script>";
     } else {
         $stmt = $conn->prepare('CALL eventAdd(:userID, :eventID)');
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':eventID', $eventID);
         $stmt->execute();
-        echo "Event added to your events list!";
+        echo "<script>alert('Event added to your events list!'); window.location='index.php?page=myEventsP';</script>";
     }
 }
 ?>
@@ -55,19 +51,23 @@ if(isset($_POST['addEvent'])) {
     } ?>
     <p>Address: <?php echo htmlspecialchars($event['venueAddress']); ?></p>
     <?php
-    if($role == 'participant')
-    { ?>
-        <form method="post">
-            <input type="submit" name="addEvent" value="Sign Up">
-        </form>
-    <?php
-    } ?>
-    <?php
-    if($role == 'guest')
-    { ?>
-        <p>To sign up for an event ->
-        <a href="index.php?page=login&id=<?= htmlspecialchars($eventID)?>"><button>Login</button></a>
-        or <a href="index.php?page=newUser&id=<?= htmlspecialchars($eventID)?>"><button>Create Account</button></a></p>
-    <?php
+    if($numParticipants == $totalSeats){
+        ?> <h3>Sorry this event is full</h3> <?php
+    } else{
+        if($role == 'participant')
+        { ?>
+            <form method="post">
+                <input type="submit" name="addEvent" value="Sign Up">
+            </form>
+        <?php
+        } ?>
+        <?php
+        if($role == 'guest')
+        { ?>
+            <p>To sign up for an event ->
+            <a href="index.php?page=login&id=<?= htmlspecialchars($eventID)?>"><button>Login</button></a>
+            or <a href="index.php?page=newUser&id=<?= htmlspecialchars($eventID)?>"><button>Create Account</button></a></p>
+        <?php
+        } 
     } ?>
 </main>
