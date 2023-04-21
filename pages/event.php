@@ -41,18 +41,19 @@ if(isset($_POST['addEvent'])) {
 
 <main>
     <h1><?php echo htmlspecialchars($event['eventName']); ?></h1>
-    <img class="eventImg" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>">
-    <p>Date: <?php echo htmlspecialchars(date('Y-m-d H:i', strtotime($event['eventDate']))); ?></p>
-    <p>Description: <?php echo htmlspecialchars($event['description']); ?></p>
-    <p>Venue: <?php echo htmlspecialchars($event['venueName']); ?><a href="index.php?page=venue&id=<?php echo htmlspecialchars($event['venueID']) ?>"><button>Venue info</button></a></p>
+    <img class="event-img" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>">
+    <div class="event_details">
+    <p class='event-date'>Date: <?php echo htmlspecialchars(date('Y-m-d H:i', strtotime($event['eventDate']))); ?></p>
+    <p class='event-date'>Description: <?php echo htmlspecialchars($event['description']); ?></p>
+    <p class='event-date'>Venue: <?php echo htmlspecialchars($event['venueName']); ?><a href="index.php?page=venue&id=<?php echo htmlspecialchars($event['venueID']) ?>"><button class="buttonD">Venue info</button></a></p>
     <?php
     if($role == 'admin')
     { ?>
-        <p>total seats: <?php echo htmlspecialchars($event['totalSeats']); ?></p>
-        <p>total people: <?php echo htmlspecialchars($numParticipants); ?></p>
+        <p class='event-date'>total seats: <?php echo htmlspecialchars($event['totalSeats']); ?></p>
+        <p class='event-date'>total people: <?php echo htmlspecialchars($numParticipants); ?></p>
     <?php
     } ?>
-    <p>Address: <?php echo htmlspecialchars($event['venueAddress']); ?></p>
+    <p class='event-date'>Address: <?php echo htmlspecialchars($event['venueAddress']); ?></p>
     <?php
     if($seatsRemaining < 11 && $seatsRemaining > 1){
         ?> <h3>Only <?= $seatsRemaining?> seats left!</h3> <?php
@@ -65,17 +66,18 @@ if(isset($_POST['addEvent'])) {
         if($role == 'participant')
         { ?>
             <form method="post">
-                <input type="submit" name="addEvent" value="Sign Up">
+                <button class="buttonD" type="submit" name="addEvent">Sign Up</button>
             </form>
         <?php
         } ?>
         <?php
         if($role == 'guest')
         { ?>
-            <p>To sign up for this event ->
-            <a href="index.php?page=login&id=<?= htmlspecialchars($eventID)?>"><button>Login</button></a>
-            or <a href="index.php?page=newUser&id=<?= htmlspecialchars($eventID)?>"><button>Create Account</button></a></p>
+            <p class='event-date'>To sign up for this event ->
+            <a href="index.php?page=login&id=<?= htmlspecialchars($eventID)?>"><button class="buttonD">Login</button></a>
+            or <a href="index.php?page=newUser&id=<?= htmlspecialchars($eventID)?>"><button class="buttonD">Create Account</button></a></p>
         <?php
         } 
     } ?>
+    </div>
 </main>

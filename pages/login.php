@@ -34,21 +34,27 @@ if(isset($_POST['submit'])) {
                 header('Location: ' . $redirect);
                 exit();
             } else {
-                echo "Incorrect password.";
+                echo '<div class="error" style="color: red;"><h3>Incorrect password.</h3></div>';
             }
         } else {
-            echo "No user found with the given email.";
+                echo '<div class="error" style="color: red;"><h3>No user found with the given email.</h3></div>';
         }
 }
 ?>
 
 <main>
-    <h3>Login</h3>
-    <form method="post">
-        <label>Email:</label>
-        <input type="email" name="email" required>
-        <label>Password:</label>
-        <input type="password" name="password" required>
-        <input type="submit" name="submit" value="Login">
+    <form class="form" method="post">
+        <div class="title">Login</div>
+        <div class="input-container ic1">
+            <input id="email" name="email" class="input" type="email" placeholder=" " />
+            <div class="cut"></div>
+            <label for="email" class="placeholder">Email</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="password" name="password" class="input" type="password" placeholder=" " />
+            <div class="cut"></div>
+            <label for="password" class="placeholder">Password</label>
+        </div>
+        <button type="submit" name="submit" class="submit">submit</button>
     </form>
 </main>

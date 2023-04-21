@@ -7,8 +7,12 @@
 ?>
 
 <main>
+    <div>
+        <input type="text" class="search-input" id="searchInput" onkeyup="filterEvents()" placeholder="Search by event name...">
+    </div>
+    <div>
     <h1>Upcoming Events</h1>
-    <input type="text" class="search-input" id="searchInput" onkeyup="filterEvents()" placeholder="Search by event name...">
+    </div>
     
     <div class='event-grid'>
         <?php
@@ -19,7 +23,7 @@
             <div class="event_details">
                 <h2 class="event-name"><?php echo htmlspecialchars($event['eventName']); ?></h2>
                 <p class="event-date">Date: <?php echo htmlspecialchars(date('Y-m-d H:i', strtotime($event['eventDate']))); ?></p>
-                <a href="index.php?page=event&id=<?php echo htmlspecialchars($event['eventID']) ?>"><button>Details</button></a>
+                <a href="index.php?page=event&id=<?php echo htmlspecialchars($event['eventID']) ?>"><button class="buttonD">Details</button></a>
         </div>
         </div>
         <?php

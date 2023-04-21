@@ -1,5 +1,17 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #333399, #ff00cc);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  width: 100%;
+}
+
 nav {
-  background-color: #9c9292;
+  background-color: #202020;
   overflow: hidden;
 }
 
@@ -22,29 +34,12 @@ nav li a {
 }
 
 nav li a:hover {
-  background-color: #111;
+  background-color: #ff37d7;
+  color: #202020;
 }
 
-.event {
-  float: left;
-  padding-left: 30px;
-}
-
-.date {
+.right {
   float: right;
-}
-
-.eventImg {
-  max-height: 300px;
-}
-
-.eventInfo {
-  display: inline-block;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
 }
 
 footer {
@@ -53,6 +48,9 @@ footer {
   padding: 20px;
   text-align: center;
   font-size: 14px;
-  justify-content: center;
+  display: block;
+  align-self: center;
   height: 50px;
+  margin-top: auto;
+  width: 98%;
 }

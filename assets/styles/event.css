@@ -1,14 +1,33 @@
-/* Set a consistent font and color scheme */
-
-/* Add headings to divide the page into sections */
 h1 {
   justify-content: center;
-  margin-bottom: 2em;
+  text-align: center;
   max-width: 100%;
   color: aliceblue;
 }
 
-/* CSS */
+.event-img {
+  width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+  margin-top: 20px;
+}
+
+.event-details {
+  margin-top: 1em;
+}
+
+.event-date {
+  font-size: 1.3em;
+  color: aliceblue;
+}
+
+h3 {
+  color: #eee;
+  font-size: 1.5em;
+}
+
 .buttonD {
   align-items: center;
   appearance: none;
@@ -59,78 +78,4 @@ h1 {
 .buttonD:active {
   box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
-}
-
-/* Use a grid layout to display events */
-.event-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: fit-content;
-  padding-right: 30px;
-  margin: 0 auto;
-}
-
-/* Style the event images */
-.event-img {
-  width: 100%;
-  height: auto;
-  border-radius: 5%;
-  border: solid 0.2em;
-  border-color: #333;
-  transition: transform 0.2s ease-out;
-}
-
-/* Add a hover effect to the event images */
-.event-img:hover {
-  transform: scale(1.05);
-}
-
-/* Style the event details */
-.event-details {
-  margin-top: 1em;
-}
-
-.event-name {
-  font-size: 1.3em;
-  margin-bottom: 0.5em;
-  color: aliceblue;
-}
-
-.event-date {
-  font-size: 0.8em;
-  color: aliceblue;
-}
-
-/* Style the search bar */
-.search-input {
-  width: 300px;
-  padding: 0.5em;
-  border-radius: 0.5em;
-  border: none;
-  float: right;
-  color: black;
-  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
-}
-
-.event {
-  width: calc(30% - 10px);
-  margin-bottom: 20px;
-}
-
-@media only screen and (max-width: 768px) {
-  .event {
-    width: 100%;
-    text-align: center;
-    padding: 5px;
-  }
-
-  .event-grid {
-    padding-right: 0px;
-  }
-
-  .search-input {
-    width: 98%;
-    float: none;
-  }
 }
