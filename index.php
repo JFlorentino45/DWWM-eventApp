@@ -6,3 +6,4 @@ $pageLink = CSS . "/" . $page . ".css";
 $router = new Router();
 include './pages/base.php';
 ?>
+<link rel="stylesheet" href="<?= $pageLink ?>">

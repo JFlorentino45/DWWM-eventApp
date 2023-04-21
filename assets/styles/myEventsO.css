@@ -1,0 +1,69 @@
+/* Set a consistent font and color scheme */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Add headings to divide the page into sections */
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+/* Use a grid layout to display events */
+.event-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: fit-content;
+  padding-right: 30px;
+  margin: 0 auto;
+}
+
+/* Style the event images */
+.event-img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.2s ease-out;
+}
+
+/* Add a hover effect to the event images */
+.event-img:hover {
+  transform: scale(1.05);
+}
+
+/* Style the event details */
+.event-details {
+  margin-top: 1em;
+}
+
+.event-name {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+.event-date {
+  font-size: 0.8em;
+  color: #999;
+}
+
+/* Style the search bar */
+.search-input {
+  width: 100%;
+  padding: 0.5em;
+  margin-bottom: 2em;
+  border-radius: 0.5em;
+  border: none;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
+}
+
+.event {
+  width: calc(30% - 10px);
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .event {
+    width: 100%;
+  }
+}

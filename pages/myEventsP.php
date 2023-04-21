@@ -34,7 +34,7 @@ if($role == 'participant'){
             <div class="event">
             <h1><?php echo htmlspecialchars($event['eventName']); ?></h1>
             <img class="eventImg" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>">
-            <p>Date: <?php echo htmlspecialchars($event['eventDate']); ?></p>
+            <p>Date: <?php echo htmlspecialchars(date('Y-m-d H:i', strtotime($event['eventDate']))); ?></p>
             <p>Description: <?php echo htmlspecialchars($event['description']); ?></p>
             <p>Venue: <?php echo htmlspecialchars($event['venueName']); ?> <a href="index.php?page=venue&id=<?php echo htmlspecialchars($event['venueID']) ?>">
                 <button name="clickme">More Info</button></a></p>

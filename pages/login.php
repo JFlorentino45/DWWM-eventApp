@@ -43,7 +43,7 @@ if(isset($_POST['submit'])) {
 ?>
 
 <main>
-    <h1>Login</h1>
+    <h3>Login</h3>
     <form method="post">
         <label>Email:</label>
         <input type="email" name="email" required>

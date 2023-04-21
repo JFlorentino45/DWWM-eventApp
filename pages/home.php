@@ -5,27 +5,45 @@
     $stmt->execute();
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <main>
-    <div>
+    <h1>Upcoming Events</h1>
+    <input type="text" class="search-input" id="searchInput" onkeyup="filterEvents()" placeholder="Search by event name...">
+    
+    <div class='event-grid'>
         <?php
-    foreach ($events as $event) {
+        foreach ($events as $event) {
         ?>
-        <div class="event">
-            <img class="eventImg" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>">
-            <ul class="eventInfo">
-                <li>
-                    <h2><?php echo htmlspecialchars($event['eventName']); ?></h2>
-                </li>
-                <li>
-                    <p class="date">Date: <?php echo htmlspecialchars($event['eventDate']); ?></p>
-                </li>
-                <li>
-                    <a href="index.php?page=event&id=<?php echo htmlspecialchars($event['eventID']) ?>"><button>Details</button></a>
-                </li>
-            </ul>
+        <div class="event" data-name="<?php echo htmlspecialchars($event['eventName']); ?>">
+            <img class="event-img" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>">
+            <div class="event_details">
+                <h2 class="event-name"><?php echo htmlspecialchars($event['eventName']); ?></h2>
+                <p class="event-date">Date: <?php echo htmlspecialchars(date('Y-m-d H:i', strtotime($event['eventDate']))); ?></p>
+                <a href="index.php?page=event&id=<?php echo htmlspecialchars($event['eventID']) ?>"><button>Details</button></a>
+        </div>
         </div>
         <?php
-    }
-    ?>
+        }
+        ?>
     </div>
 </main>
+
+<script>
+function filterEvents() {
+    // Get input value
+    var inputValue = document.getElementById("searchInput").value.toUpperCase();
+
+    // Get all events
+    var events = document.querySelectorAll(".event");
+
+    // Loop through all events, and hide those that don't match the search query
+    for (var i = 0; i < events.length; i++) {
+        var eventName = events[i].getAttribute("data-name");
+        if (eventName.toUpperCase().indexOf(inputValue) > -1) {
+            events[i].style.display = "";
+        } else {
+            events[i].style.display = "none";
+        }
+    }
+}
+</script>
