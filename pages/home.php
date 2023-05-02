@@ -7,19 +7,16 @@
 ?>
 
 <main>
-    <div>
-        <input type="text" class="search-input" id="searchInput" onkeyup="filterEvents()" placeholder="Search by event name...">
-    </div>
-    <div>
-    <h1>Upcoming Events</h1>
-    </div>
+    <div class='background-tophalf'></div>
+    <h1 class='title'>Upcoming Events</h1>
+    <input type="text" class="search-input" id="searchInput" onkeyup="filterEvents()" placeholder="Search by event name...">
     
     <div class='event-grid'>
         <?php
         foreach ($events as $event) {
         ?>
-        <div class="event" data-name="<?php echo htmlspecialchars($event['eventName']); ?>">
-            <img class="event-img" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>">
+            <div class="event" data-name="<?php echo htmlspecialchars($event['eventName']); ?>">
+            <a href="index.php?page=event&id=<?php echo htmlspecialchars($event['eventID']) ?>"><img class="event-img" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>"></a>
             <div class="event_details">
                 <h2 class="event-name"><?php echo htmlspecialchars($event['eventName']); ?></h2>
                 <p class="event-date">Date: <?php echo htmlspecialchars(date('Y-m-d H:i', strtotime($event['eventDate']))); ?></p>

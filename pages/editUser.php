@@ -46,25 +46,43 @@ if($role == 'admin' || $userID == getUserID()){
 ?>
 
 <main>
-    <h1>Edit Profile</h1>
-    <form method="POST" onsubmit='return confirm("Are you sure?")'>
-        <label>User Name:</label>
-        <input type='text' id='userName' name='userName' value="<?php echo htmlspecialchars($user['userName']); ?>">
-        <label>Email:</label>
-        <input type='email' id='email' name='email' value="<?php echo htmlspecialchars($user['email'])?>" required>
+    <form class='form' method="POST" onsubmit='return confirm("Are you sure?")'>
+        <div class='title'>Edit Profile</div>
+        <div class="input-container ic1">
+            <input type='text' id='userName' name='userName' class="input" value="<?php echo htmlspecialchars($user['userName']); ?>" required/>
+            <div class="cut"></div>
+            <label for="userName" class="placeholder">User Name:</label>
+        </div>
+        <div class="input-container ic2">
+            <input type='email' id='email' class="input" name='email' value="<?php echo htmlspecialchars($user['email'])?>" required>
+            <div class="cut cut-short"></div>
+            <label for="email" class="placeholder">Email:</label>
+        </div>
         <?php if($role == 'admin'){
         ?>
-            <label>Current Role:</label>
-            <select name='role' required>
-                <option value=""><?php echo htmlspecialchars($user['role']); ?></option>
-                <option value="admin">Admin</option>
-                <option value="organiser">Organiser</option>
-                <option value="participant">Participant</option>
-            </select>
-            <input type="submit" name="delete" value="Delete Profile">
+            <style>
+                .form{
+                    height: 570px;
+                }
+            </style>
+            <div class="input-container ic2">
+                <select name='role' class="input" required>
+                    <option value=""><?php echo htmlspecialchars($user  ['role']); ?></option>
+                    <option value="admin">Admin</option>
+                    <option value="organiser">Organiser</option>
+                    <option value="participant">Participant</option>
+                </select>
+                <div class='cut cut-long'></div>
+                <label for='role' class='placeholder'>Current Role:</label>
+            </div>
+            <?php
+        } ?>
+        <button class="submit" type="submit" name="submit" >Edit Profile</button>
+        <a href="index.php?page=editPassword&id=<?php echo htmlspecialchars($userID)?>"><button class='submitR' type="button">Reset Password</button></a>
+        <?php if($role == 'admin'){
+        ?>
+            <button class='submitR' type='delete' name="delete">Delete Profile</button>
         <?php
         } ?>
-        <input type="submit" name="submit" value="Edit Profile">
     </form>
-    <a href="index.php?page=editPassword&id=<?php echo htmlspecialchars($userID)?>">Reset Password</a>
 </main>

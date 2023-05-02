@@ -33,10 +33,10 @@ if($role == 'admin') {
                     <h2 class="event-name"><?php echo htmlspecialchars($event['eventName']); ?></h2>
                     <p class="event-date">Date: <?php echo htmlspecialchars(date('Y-m-d H:i', strtotime($event['eventDate']))); ?></p>
                     <p><a href="index.php?page=editEvent&id=<?php echo htmlspecialchars($event['eventID']) ?>">
-                        <button name="edit">Edit Event</button>
+                        <button class='buttonD' name="edit">Edit Event</button>
                     </a>
                     <a href="index.php?page=removeEvent&id=<?php echo htmlspecialchars($event['eventID']) ?>">
-                        <button name="remove">Remove Event</button>
+                        <button class='buttonR' name="remove">Remove Event</button>
                     </a></p>
                 </div>
             </div>

@@ -36,28 +36,49 @@ if($role == 'admin' || $role == 'organiser') {
 ?>
 
 <main>
-    <h1>Create Event</h1>
-    <form method="post">
-        <label>Event Name:</label>
-        <input type="text" name="eventName" required>
-        <label>Event Date:</label>
-        <input type="datetime-local" name="eventDate" required>
-        <label>Venue:</label>
-        <select name="venueID" required>
-            <option value="">Select a venue</option>
+    <form class='form' method="post">
+        <div class='title'>Create Event</div>
+        <div class="input-container ic1">
+            <input id="eventName" name="eventName" class="input" type="text" placeholder=" " required/>
+            <div class="cut"></div>
+            <label for="eventName" class="placeholder">Event Name</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="eventDate" name="eventDate" class="input" type="datetime-local" placeholder=" " required/>
+            <div class="cut"></div>
+            <label for="eventDate" class="placeholder">Event Date</label>
+        </div>
+        <div class="input-container ic2">
+            <select id="venueID" name="venueID" class="input" placeholder=" " required>
+                <option value="">Select a venue</option>
             <?php foreach($venues as $venue) { ?>
                 <option value="<?php echo htmlspecialchars($venue['venueID']); ?>"><?php echo htmlspecialchars($venue['venueName']) . " " . htmlspecialchars($venue['venuePostalCode']); ?></option>
                 <?php } ?>
-        </select>
-        <label>Description:</label>
-        <textarea name="description" rows="5" cols="33" required></textarea>
-        <label>Event Organiser:</label>
-        <input type="text" name="eventOrganiser" required>
-        <label>Total Seats:</label>
-        <input type="number" name="totalSeats" required>
-        <label>Image Url:</label>
-        <input type="text" name="imageURL" required>
-        <input type="submit" name="submit" value="Create Event">
+            </select>
+            <div class="cut"></div>
+            <label for="venueID" class="placeholder">Venue</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="description" name="description" class="input disc" type='text' placeholder=" " required/>
+            <div class="cut"></div>
+            <label for="description" class="placeholder">Description</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="eventOrganiser" name="eventOrganiser" class="input" type="text" placeholder=" " required/>
+            <div class="cut"></div>
+            <label for="eventOrganiser" class="placeholder">Event Organiser</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="totalSeats" name="totalSeats" class="input" type="number" placeholder=" " required/>
+            <div class="cut"></div>
+            <label for="totalSeats" class="placeholder">Total Seats</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="imageURL" name="imageURL" class="input" type="text" placeholder=" " required/>
+            <div class="cut"></div>
+            <label for="imageURL" class="placeholder">Image Url</label>
+        </div>
+        <input type="submit" class='submit' name="submit" value="Create Event">
     </form>
     <a href="index.php?page=newVenue"><button name="new venue">New Venue</button></a>
 </main>

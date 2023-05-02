@@ -46,15 +46,15 @@ if(isset($_POST['submit'])) {
     <form class="form" method="post">
         <div class="title">Login</div>
         <div class="input-container ic1">
-            <input id="email" name="email" class="input" type="email" placeholder=" " />
-            <div class="cut"></div>
-            <label for="email" class="placeholder">Email</label>
+            <input id="email" name="email" class="input" type="email" placeholder=" " required/>
+            <div class="cut cut-short"></div>
+            <label for="email" class="placeholder">Email*</label>
         </div>
         <div class="input-container ic2">
-            <input id="password" name="password" class="input" type="password" placeholder=" " />
+            <input id="password" name="password" class="input" type="password" placeholder=" " required/>
             <div class="cut"></div>
-            <label for="password" class="placeholder">Password</label>
+            <label for="password" class="placeholder">Password*</label>
         </div>
-        <button type="submit" name="submit" class="submit">submit</button>
+        <button type="submit" name="submit" class="submit">Login</button>
     </form>
 </main>

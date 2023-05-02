@@ -14,7 +14,9 @@ if($userID){
 ?>
 
 <main>
-    <p>User Name: <?= htmlspecialchars($info['userName']) ?></p>
-    <p>Email: <?= htmlspecialchars($info['email']) ?> </p>
-    <a href="index.php?page=editUser&id=<?= $userID?>"><button>Edit Profile</button></a>
+    <div class='form'>
+    <div class='title'>Welcome back, <?= htmlspecialchars($info['userName']) ?></div>
+    <div class='subtitle'>Email: <?= htmlspecialchars($info['email']) ?> </div>
+    <a href="index.php?page=editUser&id=<?= $userID?>"><button class='submit'>Edit Profile</button></a>
+</div>
 </main>

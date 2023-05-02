@@ -9,9 +9,9 @@ body {
   border-radius: 20px;
   margin-top: 50px;
   box-sizing: border-box;
-  height: 400px;
+  height: auto;
   padding: 20px;
-  width: 320px;
+  width: 160vh;
 }
 
 .title {
@@ -61,7 +61,7 @@ body {
 }
 
 .cut-short {
-  width: 50px;
+  width: 54px;
 }
 
 .input:focus ~ .cut,

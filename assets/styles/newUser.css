@@ -73,6 +73,10 @@ body {
   width: 50px;
 }
 
+.cut-long {
+  width: 120px;
+}
+
 .input:focus ~ .cut,
 .input:not(:placeholder-shown) ~ .cut {
   transform: translateY(8px);

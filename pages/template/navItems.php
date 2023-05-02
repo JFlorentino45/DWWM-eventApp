@@ -34,7 +34,7 @@ function getNavigationItems() {
         return '
             <li><a href="index.php">Home</a></li>
             <li class="right"><a href="index.php?page=login">Login</a></li>
-            <li class="right"><a href="index.php?page=newUser">Create account</a></li>';
+            <li class="right"><a href="index.php?page=newUser">Create Account</a></li>';
     }
 }
 ?>

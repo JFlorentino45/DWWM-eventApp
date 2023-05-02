@@ -1,0 +1,28 @@
+h1 {
+  justify-content: center;
+  text-align: center;
+  max-width: 100%;
+  color: rgb(220, 237, 252);
+  font-size: 2.5em;
+}
+
+.venue-img {
+  width: 70%;
+  max-height: 75vh;
+  margin-left: 100px;
+  margin-top: 20px;
+  float: left;
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+.address {
+  font-size: 1.5em;
+  color: rgb(220, 237, 252);
+}
+
+h3 {
+  margin-left: 20px;
+  font-size: 2em;
+  color: rgb(220, 237, 252);
+}

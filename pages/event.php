@@ -20,6 +20,13 @@ $stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE eventID = :eventI
 $stmt->execute(['eventID' => $eventID]);
 $numParticipants = $stmt->fetchColumn();
 
+$stmt = $conn->prepare("SELECT * FROM participate WHERE eventID = :eventID AND userID = :userID");
+$stmt->bindParam(':userID', $userID);
+$stmt->bindParam(':eventID', $eventID);
+$stmt->execute();
+$attending = $stmt->fetch();
+
+
 $stmt = $conn->prepare("SELECT COUNT(*) FROM participate WHERE userID = :userID AND eventID = :eventID");
 $stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
 $count = $stmt->fetchColumn();
@@ -42,7 +49,7 @@ if(isset($_POST['addEvent'])) {
 <main>
     <h1><?php echo htmlspecialchars($event['eventName']); ?></h1>
     <img class="event-img" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>">
-    <div class="event_details">
+    <div class="event-details">
     <p class='event-date'>Date: <?php echo htmlspecialchars(date('Y-m-d H:i', strtotime($event['eventDate']))); ?></p>
     <p class='event-date'>Description: <?php echo htmlspecialchars($event['description']); ?></p>
     <p class='event-date'>Venue: <?php echo htmlspecialchars($event['venueName']); ?><a href="index.php?page=venue&id=<?php echo htmlspecialchars($event['venueID']) ?>"><button class="buttonD">Venue info</button></a></p>
@@ -63,7 +70,7 @@ if(isset($_POST['addEvent'])) {
     if($numParticipants == $totalSeats){
         ?> <h3>Sorry this event is full</h3> <?php
     } else{
-        if($role == 'participant')
+        if($role == 'participant' && $attending == null)
         { ?>
             <form method="post">
                 <button class="buttonD" type="submit" name="addEvent">Sign Up</button>

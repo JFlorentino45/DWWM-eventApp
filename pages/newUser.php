@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
   $password = strip_tags($_POST["password"]);
   $passwordCheck = strip_tags($_POST['passwordCheck']);
   if ($password != $passwordCheck){
-    echo "<script>alert('Passwords do not match');</script>";
+    echo '<div class="error" style="color: red;"><h3>Passwords do not match.</h3></div>';
   } else{
   $hashed_password = password_hash($password, PASSWORD_DEFAULT);
   $stmt = $conn->prepare('SELECT email FROM user WHERE email = :email');
@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
   $stmt->execute();
   $usedEmail = $stmt->fetch();
   if ($usedEmail){
-    echo "<script>alert('Email already exists');</script>";
+    echo '<div class="error" style="color: red;"><h3>Email already exists.</h3></div>';
   } else{
     $stmt = $conn->prepare("CALL newUserCreate(:username, :email, :role)");
     $stmt->bindParam(':username', $username);
@@ -54,23 +54,23 @@ if (isset($_POST['submit'])) {
         <div class="input-container ic1">
             <input id="username" name="username" class="input" type="username" placeholder=" " required/>
             <div class="cut"></div>
-            <label for="username" class="placeholder">Username</label>
+            <label for="username" class="placeholder">Username*</label>
         </div>
         <div class="input-container ic2">
             <input id="email" name="email" class="input" type="email" placeholder=" " required/>
-            <div class="cut"></div>
-            <label for="email" class="placeholder">Email</label>
+            <div class="cut cut-short"></div>
+            <label for="email" class="placeholder">Email*</label>
         </div>
         <div class="input-container ic2">
             <input id="password" name="password" class="input" type="password" placeholder=" " required/>
             <div class="cut"></div>
-            <label for="password" class="placeholder">Password</label>
+            <label for="password" class="placeholder">Password*</label>
         </div>
         <div class="input-container ic2">
             <input id="passwordCheck" name="passwordCheck" class="input" type="password" placeholder=" " required/>
-            <div class="cut"></div>
-            <label for="passwordCheck" class="placeholder">Confirm Password</label>
+            <div class="cut cut-long"></div>
+            <label for="passwordCheck" class="placeholder">Confirm Password*</label>
         </div>
-        <button type="submit" name="submit" class="submit">submit</button>
+        <button type="submit" name="submit" class="submit">Create</button>
     </form>
 </main>

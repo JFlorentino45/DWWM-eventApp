@@ -14,6 +14,7 @@ $venue = $stmt->fetch();
 
 <main>
     <h1><?php echo htmlspecialchars($venue['venueName']); ?></h1>
-    <img class="venueImg" src="<?php echo htmlspecialchars($venue['venueImg']); ?>" alt="<?php echo htmlspecialchars($venue['venueName']); ?>">
-    <p>Address: <?php echo htmlspecialchars($venue['venueAddress']). " ". htmlspecialchars($venue['venuePostalCode']); ?></p>
+    <img class="venue-img" src="<?php echo htmlspecialchars($venue['venueImg']); ?>" alt="<?php echo htmlspecialchars($venue['venueName']); ?>">
+    <h3>Address: </h3>
+    <p class='address'><?php echo htmlspecialchars($venue['venueAddress']). " ". htmlspecialchars($venue['venuePostalCode']); ?></p>
 </main>

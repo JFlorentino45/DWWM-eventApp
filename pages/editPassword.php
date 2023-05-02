@@ -43,7 +43,7 @@ if($control == ''){
                     $stmt->execute();
                     echo "Password Reset!";
                 } else{
-                    echo "New Passwords do not match";
+                    echo "Passwords do not match";
                 }
 
             } else{
@@ -60,21 +60,35 @@ if($control == ''){
 ?>
 
 <main>
-    <h1>Reset Password</h1>
-    <form method="POST" onsubmit='return confirm("Are you sure?")'>
+    <form class='form' method="POST" onsubmit='return confirm("Are you sure?")'>
+    <div class="title">Reset Password</div>
         <?php
         if($role != 'admin'){
         ?>
-            <label>Current Password:</label>
-            <input type="password" name="oldPassword" required>
+        <style>
+            .form{
+                height: 550px;
+            }
+        </style>
+        <div class="input-container ic1">
+            <input id='oldPassword' name='oldPassword' class='input' type='password' placeholder=" " required/>
+            <div class='cut'></div>
+            <label for='oldPassword' class='placeholder'>Current Password</label>
+        </div>
         <?php
         }
         ?>
-        <label>New Password:</label>
-        <input type="password" name="newPassword" required>
-        <label>Confirm Password:</label>
-        <input type="password" name="passwordCheck" required>
-        <input type="submit" name="submit" value="Change Password">
+        <div class="input-container ic1">
+            <input id='newPassword' name='newPassword' class='input' type='password' placeholder=" " required/>
+            <div class='cut cut-short'></div>
+            <label for='newPassword' class='placeholder'>New Password</label>
+        </div>
+        <div class="input-container ic2">
+            <input id='passwordCheck' name='passwordCheck' class='input' type='password' placeholder=" " required/>
+            <div class='cut'></div>
+            <label for='passwordCheck' class='placeholder'>Confirm Password</label>
+        </div>
+        <button type="submit" name="submit" class='submit'>Change Password</button>
+        <a href="index.php"><button class='submitR' type='button'>Cancel</button></a>
     </form>
-    <a href="index.php"><button>Cancel</button></a>
 </main>
