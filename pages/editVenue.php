@@ -3,13 +3,14 @@ require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 require_once('./classes/CheckVID.php');
 
-$role = AccountInfo::getRole();
-$venueID = $_GET['id'];
+$role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
+$venueID = strip_tags(htmlspecialchars($_GET['id']));
 CheckVID::GetvID($venueID, $conn);
 
 if ($role == 'admin') {
     $stmt = $conn->prepare("SELECT * FROM venue WHERE venueID = :id");
-    $stmt->execute(['id' => $venueID]);
+    $stmt->bindParam('id', $venueID);
+    $stmt->execute();
     $venue = $stmt->fetch();
 
     if (isset($_POST['submit'])) {

@@ -5,13 +5,12 @@ require_once('./classes/AccountInfo.php');
 $userID = AccountInfo::getUserID();
 if ($userID !== null) {
     header("Location: " . TEMPLATE . '403.php');
-    var_dump($userID);
     exit();
 }
 
 if (isset($_POST['submit'])) {
-    $email = strip_tags($_POST['email']);
-    $password = strip_tags($_POST['password']);
+    $email = strip_tags(htmlspecialchars($_POST['email']));
+    $password = strip_tags(htmlspecialchars($_POST['password']));
 
     $stmt = $conn->prepare(
         "CALL loginGetEmail(:email)");
@@ -32,7 +31,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['userID'] = $user['userID'];
             $_SESSION['userName'] = $user['userName'];
             $_SESSION['role'] = $user['role'];
-            $redirect = isset($_GET['id']) ? 'index.php?page=event&id=' . $_GET['id'] : 'index.php';
+            $redirect = isset($_GET['id']) ? 'index.php?page=event&id=' . strip_tags(htmlspecialchars($_GET['id'])) : 'index.php';
             header('Location: ' . $redirect);
             exit();
         } else {

@@ -2,7 +2,7 @@
 require_once('./connection/connectionString.php');
 require_once('./classes/CheckVID.php');
 
-$venueID = $_GET['id'];
+$venueID = strip_tags(htmlspecialchars($_GET['id']));
 CheckVID::GetvID($venueID, $conn);
 
 $stmt = $conn->prepare(

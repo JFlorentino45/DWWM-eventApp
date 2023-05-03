@@ -2,7 +2,7 @@
 require_once('./classes/AccountInfo.php');
 require_once('./connection/connectionString.php');
 
-$role = AccountInfo::getRole();
+$role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
 
 if ($role == 'admin') {
     $stmt = $conn->prepare(

@@ -6,7 +6,7 @@ session_start();
 function getNavigationItems()
 {
     $loggedIn = isset($_SESSION['userID']);
-    $role = AccountInfo::getRole();
+    $role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
     if ($loggedIn && $role === 'admin') {
         return '
             <li><a href="index.php">Home</a></li>

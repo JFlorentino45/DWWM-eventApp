@@ -2,7 +2,7 @@
 require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 
-$userID = AccountInfo::getUserID();
+$userID = strip_tags(htmlspecialchars(AccountInfo::getUserID()));
 
 if ($userID) {
     $stmt = $conn->prepare(

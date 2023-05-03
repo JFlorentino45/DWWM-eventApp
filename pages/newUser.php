@@ -3,11 +3,11 @@
 require_once('./connection/connectionString.php');
 
 if (isset($_POST['submit'])) {
-  $username = strip_tags($_POST["username"]);
-  $email = strip_tags($_POST["email"]);
+  $username = strip_tags(htmlspecialchars($_POST["username"]));
+  $email = strip_tags(htmlspecialchars($_POST["email"]));
   $role = 'participant';
-  $password = strip_tags($_POST["password"]);
-  $passwordCheck = strip_tags($_POST['passwordCheck']);
+  $password = strip_tags(htmlspecialchars($_POST["password"]));
+  $passwordCheck = strip_tags(htmlspecialchars($_POST['passwordCheck']));
   if ($password != $passwordCheck) {
     echo '<div class="error" style="color: red;"><h3>Passwords do not match.</h3></div>';
   } else {

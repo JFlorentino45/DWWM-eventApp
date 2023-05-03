@@ -2,18 +2,18 @@
 require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 
-$role = AccountInfo::getRole();
-$userID = AccountInfo::getUserID();
+$role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
+$userID = strip_tags(htmlspecialchars(AccountInfo::getUserID()));
 
 if ($role == 'admin' || $role == 'organiser') {
     if (isset($_POST['submit'])) {
-        $eventName = strip_tags($_POST['eventName']);
-        $eventDate = strip_tags($_POST['eventDate']);
-        $venueID = strip_tags($_POST['venueID']);
-        $description = strip_tags($_POST['description']);
-        $eventOrganiser = strip_tags($_POST['eventOrganiser']);
-        $totalSeats = strip_tags($_POST['totalSeats']);
-        $imageURL = strip_tags($_POST['imageURL']);
+        $eventName = strip_tags(htmlspecialchars($_POST['eventName']));
+        $eventDate = strip_tags(htmlspecialchars($_POST['eventDate']));
+        $venueID = strip_tags(htmlspecialchars($_POST['venueID']));
+        $description = strip_tags(htmlspecialchars($_POST['description']));
+        $eventOrganiser = strip_tags(htmlspecialchars($_POST['eventOrganiser']));
+        $totalSeats = strip_tags(htmlspecialchars($_POST['totalSeats']));
+        $imageURL = strip_tags(htmlspecialchars($_POST['imageURL']));
         $stmt = $conn->prepare(
             "CALL newEventCreate(:userID, :eventName, :eventDate, :venueID, :description, :eventOrganiser, :totalSeats, :imageURL)");
         $stmt->bindParam(':userID', $userID);

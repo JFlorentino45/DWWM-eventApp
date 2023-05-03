@@ -2,15 +2,14 @@
 require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 
-$role = AccountInfo::getRole();
+$role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
 
 if ($role == 'admin' || $role == 'organiser') {
     if (isset($_POST['submit'])) {
-        // Get the event details from the form
-        $venueName = strip_tags($_POST['venueName']);
-        $venueAddress = strip_tags($_POST['venueAddress']);
-        $venuePostalCode = strip_tags($_POST['venuePostalCode']);
-        $venueImg = strip_tags($_POST['venueImg']);
+        $venueName = strip_tags(htmlspecialchars($_POST['venueName']));
+        $venueAddress = strip_tags(htmlspecialchars($_POST['venueAddress']));
+        $venuePostalCode = strip_tags(htmlspecialchars($_POST['venuePostalCode']));
+        $venueImg = strip_tags(htmlspecialchars($_POST['venueImg']));
         $stmt = $conn->prepare(
             "CALL newVenueCreate(:venueName, :venueAddress, :venuePostalCode, :venueImg)");
         $stmt->bindParam(':venueName', $venueName);

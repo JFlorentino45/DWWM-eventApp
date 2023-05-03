@@ -3,8 +3,8 @@ require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 include_once('template/search.php');
 
-$userID = AccountInfo::getUserID();
-$role = AccountInfo::getRole();
+$userID = strip_tags(htmlspecialchars(AccountInfo::getUserID()));
+$role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
 
 if ($role == 'admin') {
     $stmt = $conn->prepare(

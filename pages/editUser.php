@@ -3,18 +3,19 @@ require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 require_once('./classes/CheckUID.php');
 
-$control = AccountInfo::getUserID();
+$control = strip_tags(htmlspecialchars(AccountInfo::getUserID()));
 
 if ($control == '') {
     header("Location: " . TEMPLATE . '403.php');
 }
-$role = AccountInfo::getRole();
-$userID = $_GET['id'];
+$role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
+$userID = strip_tags(htmlspecialchars($_GET['id']));
 CheckUID::GetuID($userID, $conn);
 
-if ($role == 'admin' || $userID == AccountInfo::getUserID()) {
+if ($role == 'admin' || $userID == $control) {
     $stmt = $conn->prepare("SELECT * FROM user WHERE userID = :userid");
-    $stmt->execute(['userid' => $userID]);
+    $stmt->bindParam(':userID', $userID);
+    $stmt->execute();
     $user = $stmt->fetch();
     if (isset($_POST['delete'])) {
         $stmt = $conn->prepare('CALL editUDelete(:userID)');
@@ -77,7 +78,7 @@ if ($role == 'admin' || $userID == AccountInfo::getUserID()) {
         <?php
         } ?>
         <button class="submit" type="submit" name="submit">Edit Profile</button>
-        <a href="index.php?page=editPassword&id=<?php echo htmlspecialchars($userID) ?>"><button class='submitR' type="button">Reset Password</button></a>
+        <a href="index.php?page=editPassword&id=<?php echo strip_tags(htmlspecialchars($userID)) ?>"><button class='submitR' type="button">Reset Password</button></a>
         <?php if ($role == 'admin') {
         ?>
             <button class='submitR' type='delete' name="delete">Delete Profile</button>

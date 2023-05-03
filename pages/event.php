@@ -3,24 +3,26 @@ require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 require_once('./classes/CheckEID.php');
 
-$eventID = $_GET['id'];
+$eventID = strip_tags(htmlspecialchars($_GET['id']));
 CheckEID::GeteID($eventID, $conn);
-$role = AccountInfo::getRole();
-$userID = AccountInfo::getUserID();
+$role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
+$userID = strip_tags(htmlspecialchars(AccountInfo::getUserID()));
 
 $stmt = $conn->prepare(
     "SELECT DISTINCT event.*, venue.*
     FROM event
     JOIN venue ON event.venueID = venue.venueID
     WHERE event.eventID = :eventID");
-$stmt->execute(['eventID' => $eventID]);
+$stmt->bindParam(':eventID', $eventID);
+$stmt->execute();
 $event = $stmt->fetch();
 
 $stmt = $conn->prepare(
     "SELECT COUNT(*) 
     FROM participate 
     WHERE eventID = :eventID");
-$stmt->execute(['eventID' => $eventID]);
+$stmt->bindParam(':eventID', $eventID);
+$stmt->execute();
 $numParticipants = $stmt->fetchColumn();
 
 $stmt = $conn->prepare(
@@ -37,7 +39,9 @@ $stmt = $conn->prepare(
     "SELECT COUNT(*) 
     FROM participate 
     WHERE userID = :userID AND eventID = :eventID");
-$stmt->execute(['userID' => $userID, 'eventID' => $eventID]);
+$stmt->bindParam(':userID', $userID);
+$stmt->bindParam(':eventID', $eventID);
+$stmt->execute();
 $count = $stmt->fetchColumn();
 $totalSeats = $event['totalSeats'];
 $seatsRemaining = ($totalSeats - $numParticipants);
@@ -72,26 +76,26 @@ if (isset($_POST['addEvent'])) {
         <?php
         if ($seatsRemaining < 11 && $seatsRemaining > 1) {
         ?> <h3>Only <?= $seatsRemaining ?> seats left!</h3> <?php
-                                                        } elseif ($seatsRemaining == 1) {
-                                                            ?> <h3>Only <?= $seatsRemaining ?> seat left!</h3> <?php
-                                                        }
-                                                        if ($numParticipants == $totalSeats) {
-                                                            ?> <h3>Sorry this event is full</h3> <?php
-                                                        } else {
-                                                            if ($role == 'participant' && $attending == null) { ?>
+        } elseif ($seatsRemaining == 1) {
+            ?> <h3>Only <?= $seatsRemaining ?> seat left!</h3> <?php
+        }
+        if ($numParticipants == $totalSeats) {
+            ?> <h3>Sorry this event is full</h3> <?php
+        } else {
+            if ($role == 'participant' && $attending == null) { ?>
                 <form method="post">
                     <button class="buttonD" type="submit" name="addEvent">Sign Up</button>
                 </form>
             <?php
-                                                            } ?>
+            } ?>
             <?php
-                                                            if ($role == 'guest') { ?>
+            if ($role == 'guest') { ?>
                 <p class='event-date'>To sign up for this event ->
                     <a href="index.php?page=login&id=<?= htmlspecialchars($eventID) ?>"><button class="buttonD">Login</button></a>
                     or <a href="index.php?page=newUser&id=<?= htmlspecialchars($eventID) ?>"><button class="buttonD">Create Account</button></a>
                 </p>
         <?php
-                                                            }
-                                                        } ?>
+            }
+        } ?>
     </div>
 </main>

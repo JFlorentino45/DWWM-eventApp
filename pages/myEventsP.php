@@ -3,8 +3,8 @@ require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 include_once('template/search.php');
 
-$role = AccountInfo::getRole();
-$userID = AccountInfo::getUserID();
+$role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
+$userID = strip_tags(htmlspecialchars(AccountInfo::getUserID()));
 
 if ($role == 'participant') {
     $stmt = $conn->prepare(
@@ -13,7 +13,7 @@ if ($role == 'participant') {
     $stmt->execute();
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if (isset($_POST['removeEvent'])) {
-        $eventID = $_POST['eventID'];
+        $eventID = strip_tags($_POST['eventID']);
         $stmt = $conn->prepare(
             'CALL myEPDelete(:userID, :eventID)');
         $stmt->bindParam(':userID', $userID);

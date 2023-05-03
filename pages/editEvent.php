@@ -3,9 +3,9 @@ require_once('./connection/connectionString.php');
 require_once('./classes/CheckEID.php');
 require_once('./classes/AccountInfo.php');
 
-$role = AccountInfo::getRole();
-$userID = AccountInfo::getUserID();
-$eventID = $_GET['id'];
+$role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
+$userID = strip_tags(htmlspecialchars(AccountInfo::getUserID()));
+$eventID = strip_tags(htmlspecialchars($_GET['id']));
 CheckEID::GeteID($eventID, $conn);
 
 $stmt = $conn->prepare('SELECT * FROM event WHERE eventID = :eventid');
@@ -40,7 +40,8 @@ if ($role == 'admin' || $event['userID'] == $userID) {
     $venuesStmt->execute();
     $venueID = $event['venueID'];
     $venues = $venuesStmt->fetchAll(PDO::FETCH_ASSOC);
-    $venueStmt = $conn->prepare('SELECT venueName FROM venue where venueID = $venueID');
+    $venueStmt = $conn->prepare('SELECT venueName FROM venue where venueID = :venueID');
+    $venueStmt->bindParam(':venueID', $venueID);
     $venueStmt->execute();
     $venue = $venueStmt->fetch();
 } else {
