@@ -1,5 +1,5 @@
 <?php
-    include('navItems.php');
+include('navItems.php');
 ?>
 
 <header>

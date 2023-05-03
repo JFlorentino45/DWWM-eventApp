@@ -1,7 +1,6 @@
 <?php
 class Router
 {
-
     private $page;
 
     public function __construct()

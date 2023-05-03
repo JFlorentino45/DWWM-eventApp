@@ -3,34 +3,40 @@ require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 require_once('./classes/CheckEID.php');
 
-$role = getRole();
-$userID = getUserID();
+$role = AccountInfo::getRole();
+$userID = AccountInfo::getUserID();
 $eventID = $_GET['id'];
-GeteID($eventID, $conn);
+CheckEID::GeteID($eventID, $conn);
 
 
-    $stmt = $conn->prepare("CALL removeEventGetName(:eventID)");
-    $stmt->bindParam(':eventID', $eventID);
-    $stmt->execute();
-    $event = $stmt->fetch();
-    $stmt = $conn->prepare("CALL removeEventCount(:userID, :eventID)");
-    $stmt->bindParam(':userID', $userID);
-    $stmt->bindParam(':eventID', $eventID);
-    $stmt->execute();
-    $count = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
-    
-    if($count > 0 || $role == 'admin'){
-        if(isset($_POST['remove'])) {
-        $stmt = $conn->prepare("CALL removeEventDelete(:eventID)");
+$stmt = $conn->prepare(
+    "CALL removeEventGetName(:eventID)"
+);
+$stmt->bindParam(':eventID', $eventID);
+$stmt->execute();
+$event = $stmt->fetch();
+$stmt = $conn->prepare(
+    "CALL removeEventCount(:userID, :eventID)"
+);
+$stmt->bindParam(':userID', $userID);
+$stmt->bindParam(':eventID', $eventID);
+$stmt->execute();
+$count = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
+
+if ($count > 0 || $role == 'admin') {
+    if (isset($_POST['remove'])) {
+        $stmt = $conn->prepare(
+            "CALL removeEventDelete(:eventID)"
+        );
         $stmt->bindParam(':eventID', $eventID);
         $stmt->execute();
         ?>myFunction()<?php ;
-        header('Location: index.php?page=myEventsO');
+            header('Location: index.php?page=myEventsO');
         }
-    } else{
-        header("Location: ". TEMPLATE . '403.php');
-    }
-?>
+        } else {
+            header("Location: " . TEMPLATE . '403.php');
+        }
+        ?>
 
 <main>
     <h2>Removing '<?php echo htmlspecialchars($event['eventName']) ?>' cannot be undone!</h2>

@@ -1,12 +1,13 @@
-
 <?php
 require_once('./connection/connectionString.php');
 require_once('./classes/CheckVID.php');
 
 $venueID = $_GET['id'];
-GetvID($venueID, $conn);
+CheckVID::GetvID($venueID, $conn);
 
-$stmt = $conn->prepare("CALL venueGetVenue(:venueID)");
+$stmt = $conn->prepare(
+    "CALL venueGetVenue(:venueID)"
+);
 $stmt->bindParam(':venueID', $venueID);
 $stmt->execute();
 $venue = $stmt->fetch();

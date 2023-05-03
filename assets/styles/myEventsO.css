@@ -6,7 +6,6 @@ h1 {
   text-align: center;
 }
 
-/* Use a grid layout to display events */
 .event-grid {
   display: flex;
   flex-wrap: wrap;
@@ -21,7 +20,6 @@ h1 {
   width: calc(30%);
   margin-bottom: 20px;
 }
-/* Style the event images */
 .event-img {
   width: 100%;
   height: 465px;
@@ -32,12 +30,10 @@ h1 {
   object-fit: cover;
 }
 
-/* Add a hover effect to the event images */
 .event-img:hover {
   transform: scale(1.05);
 }
 
-/* Style the event details */
 .event-details {
   margin-top: 1em;
 }
@@ -68,7 +64,6 @@ h1 {
   color: rgb(0, 0, 0);
 }
 
-/* Style the search bar */
 .search-input {
   width: 400px;
   padding: 1em;

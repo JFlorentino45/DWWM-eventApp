@@ -1,24 +1,24 @@
-<?php 
-include('./connection/connectionString.php');
+<?php
+require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 require_once('./classes/CheckVID.php');
 
-$role = getRole();
+$role = AccountInfo::getRole();
 $venueID = $_GET['id'];
-GetvID($venueID, $conn);
+CheckVID::GetvID($venueID, $conn);
 
-if($role == 'admin'){
+if ($role == 'admin') {
     $stmt = $conn->prepare("SELECT * FROM venue WHERE venueID = :id");
     $stmt->execute(['id' => $venueID]);
     $venue = $stmt->fetch();
-    
-    if(isset($_POST['submit'])) {
+
+    if (isset($_POST['submit'])) {
         // Get the event details from the form
         $venueName = strip_tags($_POST['venueName']);
         $venueAddress = strip_tags($_POST['venueAddress']);
         $venuePostalCode = strip_tags($_POST['venuePostalCode']);
         $venueImg = strip_tags($_POST['venueImg']);
-    
+
         $stmt = $conn->prepare('CALL editVUpdate(:venueName, :venueAddress, :venuePostalCode, :venueImg, :venueID)');
         $stmt->bindParam(':venueName', $venueName);
         $stmt->bindParam(':venueAddress', $venueAddress);
@@ -26,11 +26,11 @@ if($role == 'admin'){
         $stmt->bindParam(':venueImg', $venueImg);
         $stmt->bindParam(':venueID', $venueID);
         $stmt->execute();
-    
+
         header('Location: index.php?page=venues');
         exit();
     }
-    if(isset($_POST['delete'])) {
+    if (isset($_POST['delete'])) {
         $stmt = $conn->prepare('CALL editVDelete(:venueID)');
         $stmt->bindParam(':venueID', $venueID);
         $stmt->execute();
@@ -38,8 +38,8 @@ if($role == 'admin'){
         header('Location: index.php?page=venues');
         exit();
     }
-} else{
-    header("Location: ". TEMPLATE . '403.php');
+} else {
+    header("Location: " . TEMPLATE . '403.php');
 }
 ?>
 
