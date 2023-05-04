@@ -28,16 +28,28 @@ if ($role == 'admin' || $role == 'organiser') {
 ?>
 
 <main>
-    <h1>Create Venue</h1>
-    <form method="post">
-        <label>Venue Name:</label>
-        <input type="text" name="venueName" required>
-        <label>Venue Address:</label>
-        <input type="text" name="venueAddress" required>
-        <label>Venue Postal Code:</label>
-        <input type="text" name="venuePostalCode" required>
-        <label>Venue Image URL:</label>
-        <input type="text" name="venueImg" required>
-        <input type="submit" name="submit" value="Create Venue">
+    <form class='form' method="post">
+        <div class='title'>Create Venue</div>
+        <div class="input-container ic1">
+            <input id="venueName" name="venueName" class="input" type="text" placeholder=" " required />
+            <div class="cut"></div>
+            <label for="venueName" class="placeholder">Name*</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="venueAddress" name="venueAddress" class="input" type="text" placeholder=" " required />
+            <div class="cut"></div>
+            <label for="venueAddress" class="placeholder">Address*</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="venuePostalCode" name="venuePostalCode" class="input" type="text" placeholder=" " required />
+            <div class="cut"></div>
+            <label for="venuePostalCode" class="placeholder">Postal Code*</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="venueImg" name="venueImg" class="input" type="text" placeholder=" " required />
+            <div class="cut"></div>
+            <label for="venueImg" class="placeholder">Image URL*</label>
+        </div>
+        <button type="submit" name="submit" class="submit">Create</button>
     </form>
 </main>

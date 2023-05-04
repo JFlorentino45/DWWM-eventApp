@@ -1,0 +1,54 @@
+.users-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 100%;
+    padding-top: 30px;
+    clear: both;
+    box-shadow: 0 0 0.9em rgba(0, 0, 0, 0.4);
+}
+
+.user {
+    width: calc(30%);
+    margin-bottom: 20px;
+}
+
+.title {
+    max-width: 100%;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    clear: both;
+}
+
+.form {
+    background-color: #15172b;
+    border-radius: 20px;
+    margin-top: 50px;
+    box-sizing: border-box;
+    height: 430px;
+    padding: 20px;
+    width: 320px;
+}
+
+.submit {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 38px;
+    outline: 0;
+    text-align: center;
+    width: 100%;
+}
+  
+.submit:active {
+    background-color: #06d;
+}
+
+body {
+  color: #eee;
+}

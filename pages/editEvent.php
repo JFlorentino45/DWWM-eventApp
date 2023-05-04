@@ -50,27 +50,48 @@ if ($role == 'admin' || $event['userID'] == $userID) {
 ?>
 
 <main>
-    <h1>Edit Event</h1>
-    <form method="POST" onsubmit='return confirm("Are you sure you want to edit this event?")'>
-        <label>Event Name:</label>
-        <input type='text' name='eventName' value='<?php echo htmlspecialchars($event['eventName']); ?>'>
-        <label>Event Date:</label>
-        <input type='datetime-local' name='eventDate' value="<?php echo htmlspecialchars($event['eventDate']); ?>">
-        <label>Venue:</label>
-        <select name='newVenueID' required>
-            <option value='><?php echo htmlspecialchars($venue['venueName']); ?></option>
-            <?php foreach ($venues as $venue) { ?>
-                <option value=' <?php echo htmlspecialchars($venue['venueID']); ?>'><?php echo htmlspecialchars($venue['venueName']) . " " . htmlspecialchars($venue['venuePostalCode']); ?></option>
-        <?php } ?>
-        </select>
-        <label>Description:</label>
-        <input name='description' value='<?php echo htmlspecialchars($event['description']); ?>' required></input>
-        <label>Event Organiser:</label>
-        <input type='text' name='eventOrganiser' value='<?php echo htmlspecialchars($event['eventOrganiser']); ?>' required>
-        <label>Total Seats:</label>
-        <input type='number' name='totalSeats' value='<?php echo htmlspecialchars($event['totalSeats']); ?>' required>
-        <label>Image Url:</label>
-        <input type='text' name='imageURL' value='<?php echo htmlspecialchars($event['imageURL']); ?>' required>
-        <input type='submit' name='submit' value='Edit Event'>
+    <form method="POST" class="form "onsubmit='return confirm("Are you sure you want to edit this event?")'>
+        <div class='title'>Edit Event</div>
+        <div class="input-container ic1">
+            <input id="eventName" name="eventName" class="input" type="text" value="<?php echo htmlspecialchars($event['eventName']); ?>" required />
+            <div class="cut"></div>
+            <label for="eventName" class="placeholder">Name</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="eventDate" name="eventDate" class="input" type="datetime-local" value='<?php echo htmlspecialchars($event['eventDate']) ?>' required />
+            <div class="cut"></div>
+            <label for="eventDate" class="placeholder">Date</label>
+        </div>
+        <div class="input-container ic2">
+            <select id="newVenueID" name="newVenueID" class="input" placeholder=" " required>
+                <option value=""><?php echo htmlspecialchars($venue['venueName']); ?></option>
+                <?php foreach ($venues as $venue) { ?>
+                    <option value="<?php echo htmlspecialchars($venue['venueID']); ?>"><?php echo htmlspecialchars($venue['venueName']) . " " . htmlspecialchars($venue['venuePostalCode']); ?></option>
+                <?php } ?>
+            </select>
+            <div class="cut"></div>
+            <label for="venueID" class="placeholder">Venue</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="description" name="description" class="input disc" type='text' value='<?php echo htmlspecialchars($event['description']); ?>' required />
+            <div class="cut"></div>
+            <label for="description" class="placeholder">Description</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="eventOrganiser" name="eventOrganiser" class="input" type="text" value='<?php echo htmlspecialchars($event['eventOrganiser']); ?>' required />
+            <div class="cut"></div>
+            <label for="eventOrganiser" class="placeholder">Event Organiser</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="totalSeats" name="totalSeats" class="input" type="number" value='<?php echo htmlspecialchars($event['totalSeats']); ?>' required />
+            <div class="cut"></div>
+            <label for="totalSeats" class="placeholder">Total Seats</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="imageURL" name="imageURL" class="input" type="text" value='<?php echo htmlspecialchars($event['imageURL']); ?>' required />
+            <div class="cut"></div>
+            <label for="imageURL" class="placeholder">Image Url</label>
+        </div>
+        <input type='submit' class='submit' name='submit' value='Edit Event'>
     </form>
 </main>

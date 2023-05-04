@@ -9,17 +9,25 @@ body {
   border-radius: 20px;
   margin-top: 50px;
   box-sizing: border-box;
-  height: 500px;
+  height: 600px;
   padding: 20px;
   width: 320px;
 }
 
 .title {
   color: #eee;
+  font-family: sans-serif;
   font-size: 36px;
   font-weight: 600;
   margin-top: 30px;
-  text-align: center;
+}
+
+.subtitle {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
 }
 
 .input-container {
@@ -58,7 +66,7 @@ body {
   top: -20px;
   transform: translateY(0);
   transition: transform 200ms;
-  width: 80px;
+  width: 76px;
 }
 
 .cut-short {
@@ -66,7 +74,7 @@ body {
 }
 
 .cut-long {
-  width: 84px;
+  width: 120px;
 }
 
 .input:focus ~ .cut,
@@ -76,6 +84,7 @@ body {
 
 .placeholder {
   color: #65657b;
+  font-family: sans-serif;
   left: 20px;
   line-height: 14px;
   pointer-events: none;
@@ -114,25 +123,5 @@ body {
 }
 
 .submit:active {
-  background-color: #06d;
-}
-
-.submitR {
-  background-color: rgb(221, 0, 0);
-  border-radius: 12px;
-  border: 0;
-  box-sizing: border-box;
-  color: #eee;
-  cursor: pointer;
-  font-size: 18px;
-  height: 40px;
-  margin-top: 18px;
-  outline: 0;
-  text-align: center;
-  width: 90%;
-  margin-left: 5%;
-}
-
-.submitR:active {
-  background-color: rgb(187, 0, 0);
+  background-color: #06b;
 }

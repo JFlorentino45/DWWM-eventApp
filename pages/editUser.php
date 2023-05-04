@@ -13,7 +13,7 @@ $userID = strip_tags(htmlspecialchars($_GET['id']));
 CheckUID::GetuID($userID, $conn);
 
 if ($role == 'admin' || $userID == $control) {
-    $stmt = $conn->prepare("SELECT * FROM user WHERE userID = :userid");
+    $stmt = $conn->prepare("SELECT * FROM user WHERE userID = :userID");
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
     $user = $stmt->fetch();
@@ -21,6 +21,9 @@ if ($role == 'admin' || $userID == $control) {
         $stmt = $conn->prepare('CALL editUDelete(:userID)');
         $stmt->bindParam(':userID', $userID);
         $stmt->execute();
+        if ($role != 'admin') {
+            session_destroy();
+        }
         header('Location: index.php');
     }
     if (isset($_POST['submit'])) {
@@ -79,10 +82,6 @@ if ($role == 'admin' || $userID == $control) {
         } ?>
         <button class="submit" type="submit" name="submit">Edit Profile</button>
         <a href="index.php?page=editPassword&id=<?php echo strip_tags(htmlspecialchars($userID)) ?>"><button class='submitR' type="button">Reset Password</button></a>
-        <?php if ($role == 'admin') {
-        ?>
-            <button class='submitR' type='delete' name="delete">Delete Profile</button>
-        <?php
-        } ?>
+        <button class='submitR' type='delete' name="delete">Delete Profile</button>
     </form>
 </main>

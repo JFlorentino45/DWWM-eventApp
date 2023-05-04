@@ -14,15 +14,23 @@ if($role == 'admin'){
     header("Location: ". TEMPLATE . '403.php');
 }
 ?>
-<div>
-    <?php
+
+<main>
+    <h1 class='title'>Venues</h1>
+    <div class='venue-grid'>
+        <?php
     foreach ($venues as $venue) {
-    ?>
-    <h1><?php echo htmlspecialchars($venue['venueName']); ?></h1>
-    <img class="venueImg" src="<?php echo htmlspecialchars($venue['venueImg']); ?>" alt="<?php echo htmlspecialchars($venue['venueName']); ?>">
-    <p>Address: <?php echo htmlspecialchars($venue['venueAddress']). " ". htmlspecialchars($venue['venuePostalCode']); ?></p>
-    <a href="index.php?page=editVenue&id=<?php echo htmlspecialchars($venue['venueID']) ?>"><button>Edit</button></a>
-    <?php
+        ?>
+    <div class="venue" data-name='<?php echo htmlspecialchars($venue['venueName']); ?>'>
+    <img class="venue-img" src="<?php echo htmlspecialchars($venue['venueImg']); ?>" alt="<?php echo htmlspecialchars($venue['venueName']); ?>">
+    <div>
+        <h2 class="venue-name"><?php echo htmlspecialchars($venue['venueName']); ?></h2>
+        <p>Address: <?php echo htmlspecialchars($venue['venueAddress']). " ". htmlspecialchars($venue['venuePostalCode']); ?></p>
+        <a href="index.php?page=editVenue&id=<?php echo htmlspecialchars($venue['venueID']) ?>"><button class='buttonD'>Edit</button></a>
+    </div>
+</div>
+<?php
 }
 ?>
 </div>
+</main>

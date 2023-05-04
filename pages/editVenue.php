@@ -45,17 +45,29 @@ if ($role == 'admin') {
 ?>
 
 <main>
-    <h1>Edit Venue</h1>
-    <form method="post" onsubmit='return confirm("Are you sure?")'>
-        <label>Venue Name:</label>
-        <input type="text" name="venueName" value="<?php echo htmlspecialchars($venue['venueName']); ?>">
-        <label>Venue Address:</label>
-        <input type="text" name="venueAddress" value="<?php echo htmlspecialchars($venue['venueAddress']); ?>">
-        <label>Venue Postal Code:</label>
-        <input type="text" name="venuePostalCode" value="<?php echo htmlspecialchars($venue['venuePostalCode']); ?>">
-        <label>Venue Image URL:</label>
-        <input type="text" name="venueImg" value="<?php echo htmlspecialchars($venue['venueImg']); ?>">
-        <input type="submit" name="submit" value="Edit Venue">
-        <input type="submit" name="delete" value="Delete Venue">
+    <form method="post" class="form" onsubmit='return confirm("Are you sure?")'>
+        <div class="title">Edit Venue</div>
+        <div class="input-container ic1">
+            <input id="venueName" name="venueName" class="input" type="text" value="<?php echo htmlspecialchars($venue['venueName']); ?>" required />
+            <div class="cut"></div>
+            <label for="venueName" class="placeholder">Name*</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="venueAddress" name="venueAddress" class="input" type="text" value='<?php echo htmlspecialchars($venue['venueAddress']) ?>' required />
+            <div class="cut"></div>
+            <label for="venueAddress" class="placeholder">Address*</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="venuePostalCode" name="venuePostalCode" class="input" type="text" value='<?php echo htmlspecialchars($venue['venuePostalCode']) ?>' required />
+            <div class="cut"></div>
+            <label for="venuePostalCode" class="placeholder">Postal Code*</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="venueImg" name="venueImg" class="input" type="text" value='<?php echo htmlspecialchars($venue['venueImg']) ?>' required />
+            <div class="cut"></div>
+            <label for="venueImg" class="placeholder">Image URL*</label>
+        </div>
+        <input type="submit" name="submit" class='submit' value="Edit Venue">
+        <input type="submit" name="delete" class='submitR' value="Delete Venue">
     </form>
 </main>

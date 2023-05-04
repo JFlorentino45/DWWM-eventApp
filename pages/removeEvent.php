@@ -39,9 +39,11 @@ if ($count > 0 || $role == 'admin') {
         ?>
 
 <main>
-    <h2>Removing '<?php echo htmlspecialchars($event['eventName']) ?>' cannot be undone!</h2>
+    <div class="form">
+    <h1>Removing '<?php echo htmlspecialchars($event['eventName']) ?>' cannot be undone!</h1>
     <form method="post" onsubmit='return confirm("Are you sure you want to remove this event listing?")'>
-        <input type="submit" name="remove" value="Remove Event">
+        <input type="submit" name="remove" value="Remove Event" class="submitR">
     </form>
-    <a href="index.php?page=myEventsO"><button>Reurn to Events</button></a>
+    <a href="index.php?page=myEventsO"><button class="submit">Reurn to Events</button></a>
+    </div>
 </main>

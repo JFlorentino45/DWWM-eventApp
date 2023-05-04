@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
     <div class="title">Welcome</div>
     <div class="subtitle">Create New Account</div>
     <div class="input-container ic1">
-      <input id="username" name="username" class="input" type="username" placeholder=" " required />
+      <input id="username" name="username" class="input" type="text" placeholder=" " required />
       <div class="cut"></div>
       <label for="username" class="placeholder">Username*</label>
     </div>
