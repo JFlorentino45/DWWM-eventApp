@@ -9,18 +9,52 @@ CheckEID::GeteID($eventID, $conn);
 $role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
 $userID = strip_tags(htmlspecialchars(AccountInfo::getUserID()));
 
-$event = EventLogic::getEventDetails($eventID, $conn);
-$numParticipants = EventLogic::getNumParticipants($eventID, $conn);
-$attending = EventLogic::getAttendingStatus($eventID, $userID, $conn);
-$count = EventLogic::getCountForUser($eventID, $userID, $conn);
+$stmt = $conn->prepare(
+    "SELECT DISTINCT event.*, venue.*
+    FROM event
+    JOIN venue ON event.venueID = venue.venueID
+    WHERE event.eventID = :eventID");
+$stmt->bindParam(':eventID', $eventID);
+$stmt->execute();
+$event = $stmt->fetch();
+
+$stmt = $conn->prepare(
+    "SELECT COUNT(*) 
+    FROM participate 
+    WHERE eventID = :eventID");
+$stmt->bindParam(':eventID', $eventID);
+$stmt->execute();
+$numParticipants = $stmt->fetchColumn();
+
+$stmt = $conn->prepare(
+    "SELECT * 
+    FROM participate 
+    WHERE eventID = :eventID AND userID = :userID");
+$stmt->bindParam(':userID', $userID);
+$stmt->bindParam(':eventID', $eventID);
+$stmt->execute();
+$attending = $stmt->fetch();
+
+
+$stmt = $conn->prepare(
+    "SELECT COUNT(*) 
+    FROM participate 
+    WHERE userID = :userID AND eventID = :eventID");
+$stmt->bindParam(':userID', $userID);
+$stmt->bindParam(':eventID', $eventID);
+$stmt->execute();
+$count = $stmt->fetchColumn();
 $totalSeats = $event['totalSeats'];
-$seatsRemaining = EventLogic::calculateRemainingSeats($eventID, $conn);
+$seatsRemaining = ($totalSeats - $numParticipants);
 
 if (isset($_POST['addEvent'])) {
     if ($count > 0) {
-        echo "<script>alert('You have already signed up for this event!');</script>";
+        echo "<script>alert('You have already signed up to this event!');</script>";
     } else {
-        EventLogic::addEvent($userID, $eventID, $conn);
+        $stmt = $conn->prepare('CALL eventAdd(:userID, :eventID)');
+        $stmt->bindParam(':userID', $userID);
+        $stmt->bindParam(':eventID', $eventID);
+        $stmt->execute();
         echo "<script>alert('Event added to your events list!'); window.location='index.php?page=myEventsP';</script>";
     }
 }

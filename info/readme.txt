@@ -8,12 +8,7 @@ new@new.com P
 Bugs:
 
 ToDo:
-add lots of events and users
-create filters and test
-htaccess
-CSS
-popup for sign up
-refactoring
+change getnavitems
 
 
 
