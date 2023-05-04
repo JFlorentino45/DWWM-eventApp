@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="<?= CSS ?>/style.css">
         <link rel="stylesheet" href="<?= $pageLink ?>">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
-    <title>Home</title>
+    <title>Event Site</title>
 </head>
 <body>
 <?php
