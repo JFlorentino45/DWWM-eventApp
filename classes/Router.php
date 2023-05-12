@@ -13,7 +13,8 @@ class Router
     public function getPage()
     {
         $pagePath = PAGES . $this->page . ".php";
-        if(file_exists($pagePath)){
+        $allowedPaths = [PAGES . "home.php", PAGES . "login.php", PAGES . "editEvent.php", PAGES . "editPassword.php", PAGES . "editUser.php", PAGES . "editVenue.php", PAGES . "event.php", PAGES . "logout.php", PAGES . "myEventsO.php", PAGES . "myEventsP.php", PAGES . "newEvent.php", PAGES . "newVenue.php", PAGES . "profile.php", PAGES . "removeEvent.php", PAGES . "users.php", PAGES . "venue.php", PAGES . "venues.php"];
+        if(in_array($pagePath, $allowedPaths) && file_exists($pagePath)){
             include $pagePath;
         } else{
             include PAGES . "template/404.php";
