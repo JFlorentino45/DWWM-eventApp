@@ -17,7 +17,7 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php
         foreach ($events as $event) {
         ?>
-            <div class="event" data-name="<?php echo htmlspecialchars($event['eventName']); ?>">
+            <div class="event" data-name="<?= htmlspecialchars($event['eventName']); ?>">
                 <a href="index.php?page=event&id=<?php echo htmlspecialchars($event['eventID']) ?>"><img class="event-img" src="<?php echo htmlspecialchars($event['imageURL']); ?>" alt="<?php echo htmlspecialchars($event['eventName']); ?>"></a>
                 <div>
                     <h2 class="event-name"><?php echo htmlspecialchars($event['eventName']); ?></h2>

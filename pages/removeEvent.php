@@ -2,11 +2,13 @@
 require_once('./connection/connectionString.php');
 require_once('./classes/AccountInfo.php');
 require_once('./classes/CheckEID.php');
+require_once('./classes/CheckUID.php');
 
 $role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
 $userID = strip_tags(htmlspecialchars(AccountInfo::getUserID()));
 $eventID = strip_tags(htmlspecialchars($_GET['id']));
 CheckEID::GeteID($eventID, $conn);
+CheckUID::GetuID($userID, $conn);
 
 
 $stmt = $conn->prepare(

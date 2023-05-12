@@ -5,7 +5,7 @@ class Router
 
     public function __construct()
     {
-        $this->page = isset($_GET["page"]) ? $_GET["page"] : "home";
+        $this->page = strip_tags(htmlspecialchars(isset($_GET["page"]) ? $_GET["page"] : "home"));
         ;
     }
     public function getPage()

@@ -8,7 +8,6 @@ $eventID = strip_tags(htmlspecialchars($_GET['id']));
 CheckEID::GeteID($eventID, $conn);
 $role = strip_tags(htmlspecialchars(AccountInfo::getRole()));
 $userID = strip_tags(htmlspecialchars(AccountInfo::getUserID()));
-
 $event = EventLogic::getEventDetails($eventID, $conn);
 $numParticipants = EventLogic::getNumParticipants($eventID, $conn);
 $attending = EventLogic::getAttendingStatus($eventID, $userID, $conn);
