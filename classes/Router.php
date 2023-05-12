@@ -6,7 +6,7 @@ class Router
 
     public function __construct()
     {
-        $userPage = isset($_GET["page"]) ? $_GET["page"] : "home";
+        $userPage = isset($_GET["page"]) ? strip_tags(htmlspecialchars($_GET["page"])) : "home";
         $this->page = in_array($userPage, $this->allowedPages) ? $userPage : PAGES . "template/404.php";
         ;
     }
