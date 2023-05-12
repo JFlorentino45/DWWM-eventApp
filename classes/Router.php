@@ -11,7 +11,7 @@ class Router
     public function getPage()
     {
         if(file_exists(strip_tags(htmlspecialchars((PAGES . $this->page . ".php"))))){
-            include PAGES . $this->page . ".php";
+            include strip_tags(htmlspecialchars(PAGES . $this->page . ".php"));
         } else{
             include PAGES . "page404.php";
         }
