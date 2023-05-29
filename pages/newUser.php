@@ -46,7 +46,6 @@ if (isset($_POST['submit'])) {
       $stmt->bindParam(':password_hash', $hashed_password);
       $stmt->execute();
       if (isset($_GET['id'])) {
-
         header(strip_tags(htmlspecialchars('Location: ./index.php?page=login&id=' . $_GET['id'])));
       } else
         header('Location: ./index.php?page=login');
